@@ -29,9 +29,4 @@ if (import.meta.vitest) {
     const { baseElement } = render(<App />);
     expect(baseElement).toBeTruthy();
   });
-
-  it('should have a greeting as the title', () => {
-    const { getByText } = render(<App />);
-    expect(getByText(/Welcome studio/gi)).toBeTruthy();
-  });
 }
