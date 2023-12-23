@@ -9,8 +9,13 @@ export interface StudioProps {}
 export function Studio(props: StudioProps) {
   return (
     <main className="vstack h-screen overflow-hidden bg-blue-200">
-      <section className="flex flex-1">
-        <div id="layout-container" className="flex-1"></div>
+      <section className="flex flex-1 gap-2">
+        <div id="layout-container" className="flex flex-1 gap-2 py-4 pl-4">
+          <div className="flex flex-auto rounded-xl gap-2 px-4 py-4 bg-blue-300">
+            {' '}
+            hi
+          </div>
+        </div>
         <aside
           className={`hidden md:flex flex-col w-full md:w-80 px-4 py-4 gap-2`}
         >
