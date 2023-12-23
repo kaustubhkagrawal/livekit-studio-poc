@@ -1,3 +1,5 @@
+import styles from './Studio.module.css';
+
 export interface StudioProps {}
 
 /**
@@ -9,8 +11,11 @@ export function Studio(props: StudioProps) {
     <main className="vstack h-screen overflow-hidden bg-blue-200">
       <section className="flex flex-1">
         <div id="layout-container" className="flex-1"></div>
-        <aside className="w-full md:w-80 px-4 py-4 hidden md:flex flex-col bg-blue-800">
-          aside
+        <aside
+          className={`hidden md:flex flex-col w-full md:w-80 px-4 py-4 gap-2`}
+        >
+          <nav className="hstack justify-end w-full px-2 gap-2">hi</nav>
+          <div className="hidden md:flex flex-1 rounded-lg bg-blue-800"></div>
         </aside>
       </section>
       <footer className="hstack w-100 justify-between px-4 py-2 bg-gradient-to-r from-blue-800 via-blue-600 to-blue-800 text-white ">
