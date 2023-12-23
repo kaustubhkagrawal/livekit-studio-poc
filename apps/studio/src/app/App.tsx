@@ -1,15 +1,8 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import styles from './App.module.css';
+import { StudioPage } from '../pages/Studio';
 
 export function App() {
-  return (
-    <div>
-      <h1>
-        <span> Hello there, </span>
-        Welcome studio 👋
-      </h1>
-    </div>
-  );
+  return <StudioPage />;
 }
 
 export default App;
