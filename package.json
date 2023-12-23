@@ -4,9 +4,10 @@
   "license": "MIT",
   "scripts": {},
   "private": true,
-  "dependencies": {},
   "devDependencies": {
     "@nx/js": "17.2.7",
+    "@nx/react": "^17.2.7",
+    "@nx/vite": "^17.2.7",
     "@nx/workspace": "17.2.7",
     "nx": "17.2.7"
   }
