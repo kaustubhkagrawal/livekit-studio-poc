@@ -1,7 +1,5 @@
 import { useMeasure } from 'react-use';
-import { StudioAside } from './StudioAside';
-import { StudioContent } from './StudioContent';
-import { StudioFooter } from './StudioFooter';
+import { StudioAside, StudioContent, StudioFooter } from './components';
 
 export interface StudioProps {}
 

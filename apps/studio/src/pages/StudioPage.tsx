@@ -1,4 +1,4 @@
-import { Studio } from '../components';
+import { Studio } from '@kaustubhkagrawal/core';
 
 interface StudioPageProps {}
 

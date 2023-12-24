@@ -15,6 +15,7 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@kaustubhkagrawal/core": ["libs/modules/core/src/index.ts"],
       "@kaustubhkagrawal/ui": ["libs/ui/src/index.ts"]
     }
   },
