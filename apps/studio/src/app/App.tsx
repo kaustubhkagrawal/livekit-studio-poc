@@ -1,5 +1,5 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { StudioPage } from '../pages/Studio';
+import { StudioPage } from '../pages/StudioPage';
 
 export function App() {
   return <StudioPage />;

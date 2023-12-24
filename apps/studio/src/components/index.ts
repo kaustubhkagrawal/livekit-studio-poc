@@ -1,1 +1,1 @@
-export * from './Studio';
+export * from './widgets';
