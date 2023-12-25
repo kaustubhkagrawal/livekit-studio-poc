@@ -1,3 +1,5 @@
+import { audioPlugin } from '../../audio/index.sandbox';
+import { videoPlugin } from '../../video/index.sandbox';
 import { IConferenceProvider } from './provider.interface';
 
 interface SandboxProviderOptions {}
@@ -8,7 +10,10 @@ export class SandboxProvider implements IConferenceProvider {
     this.options = options;
   }
 
-  init() {}
+  init() {
+    audioPlugin.registerListeners();
+    videoPlugin.registerListeners();
+  }
 
   async connect(token: string = '') {
     console.log('token used', token);

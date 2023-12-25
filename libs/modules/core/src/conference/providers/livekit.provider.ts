@@ -1,5 +1,7 @@
 import { Room, RoomOptions } from 'livekit-client';
 import { IConferenceProvider } from './provider.interface';
+import { audioPlugin } from '../../audio/index.livekit';
+import { videoPlugin } from '../../video/index.livekit';
 
 interface LivekitProviderOptions extends RoomOptions {
   url: string;
@@ -14,7 +16,10 @@ export class LivekitProvider implements IConferenceProvider {
     this.room = new Room(sdkOpts);
   }
 
-  init() {}
+  init() {
+    audioPlugin.registerListeners(this.room);
+    videoPlugin.registerListeners(this.room);
+  }
 
   /**
    *
