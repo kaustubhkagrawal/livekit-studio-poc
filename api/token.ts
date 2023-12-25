@@ -20,8 +20,9 @@ export default async (request: VercelRequest, response: VercelResponse) => {
     // const participantName = 'quickstart-username';
 
     const at = new AccessToken(
-      process.env.VITE_APP_LIVEKIT_API_KEY,
-      process.env.VITE_APP_LIVEKIT_API_SECRET,
+      process.env.VITE_APP_LIVEKIT_API_KEY ?? 'APIhSjLb7LG5CkY',
+      process.env.VITE_APP_LIVEKIT_API_SECRET ??
+        'qc4aVabYyZwTLC9D5x37EaApUtckCiMAAYZtgRGye9X',
       {
         identity: username,
       }
