@@ -15,18 +15,17 @@ export default async (request: VercelRequest, response: VercelResponse) => {
   if (request.method === 'POST') {
     const { body = {} } = request;
     const { roomName = 'xyz', username = '' } = body;
-    // identifier to be used for participant.
-    // it's available as LocalParticipant.identity with livekit-client SDK
-    // const participantName = 'quickstart-username';
 
-    const at = new AccessToken(
-      process.env.VITE_APP_LIVEKIT_API_KEY ?? 'APIhSjLb7LG5CkY',
-      process.env.VITE_APP_LIVEKIT_API_SECRET ??
-        'qc4aVabYyZwTLC9D5x37EaApUtckCiMAAYZtgRGye9X',
-      {
-        identity: username,
-      }
-    );
+    const apiKey = process.env.VITE_APP_LIVEKIT_API_KEY ?? '';
+    const apiSecret = process.env.VITE_APP_LIVEKIT_API_SECRET ?? '';
+
+    if (!apiKey || !apiSecret) {
+      return response.status(500);
+    }
+
+    const at = new AccessToken(apiKey, apiSecret, {
+      identity: username,
+    });
     at.addGrant({ roomJoin: true, room: roomName });
 
     const token = at.toJwt();
