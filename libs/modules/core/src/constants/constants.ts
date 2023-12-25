@@ -6,3 +6,7 @@ export enum CONFERENCE_STATES {
   WAITING = 'waiting',
   DISCONNECTED = 'disconnected',
 }
+
+export enum CONTEXT_UPDATE_TYPE {
+  SET = 'set',
+}

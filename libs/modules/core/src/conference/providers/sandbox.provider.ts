@@ -10,5 +10,15 @@ export class SandboxProvider implements IConferenceProvider {
 
   init() {}
 
-  async connect() {}
+  async connect(token: string = '') {
+    console.log('token used', token);
+    console.log('Connection established');
+  }
+
+  private cleanup() {}
+
+  async leave() {
+    console.log('left conference');
+    this.cleanup();
+  }
 }

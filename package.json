@@ -46,6 +46,7 @@
   "dependencies": {
     "@hookform/resolvers": "^3.3.2",
     "@swc/helpers": "~0.5.2",
+    "jotai": "^2.6.0",
     "livekit-client": "^1.15.5",
     "pubsub-js": "^1.9.4",
     "react": "18.2.0",
