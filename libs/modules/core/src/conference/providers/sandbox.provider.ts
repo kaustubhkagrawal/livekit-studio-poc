@@ -1,4 +1,5 @@
 import { audioPlugin } from '../../audio/index.sandbox';
+import { participantPlugin } from '../../participant/index.sandbox';
 import { videoPlugin } from '../../video/index.sandbox';
 import { IConferenceProvider } from './provider.interface';
 
@@ -13,6 +14,7 @@ export class SandboxProvider implements IConferenceProvider {
   init() {
     audioPlugin.registerListeners();
     videoPlugin.registerListeners();
+    participantPlugin.registerListeners();
   }
 
   async connect(token: string = '') {

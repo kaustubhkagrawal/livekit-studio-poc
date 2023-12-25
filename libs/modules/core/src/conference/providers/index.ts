@@ -25,6 +25,7 @@ export class ConferenceSDK {
   public static registerProvider(provider: IConferenceProvider) {
     if (this.providerInstance === null) {
       this.providerInstance = provider;
+      provider.init();
     } else {
       console.warn(
         'You are trying to register a provider multiple times. This action is being ignored as provider is already registered'
