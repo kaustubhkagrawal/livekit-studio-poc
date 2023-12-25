@@ -1,5 +1,6 @@
 import { useMeasure } from 'react-use';
 import { StudioAside, StudioContent, StudioFooter } from './components';
+import { ConferenceSDK } from '@kaustubhkagrawal/core';
 
 export interface StudioProps {}
 
@@ -8,7 +9,7 @@ export interface StudioProps {}
  * Main Studio(Video Conference) Page.
  */
 export function Studio(props: StudioProps) {
-  const items = 10;
+  const items = ConferenceSDK.room.numParticipants;
 
   const [asideRef, { width: asideWidth }] = useMeasure<HTMLDivElement>();
   const [footerRef, { height: footerHeight }] = useMeasure<HTMLDivElement>();
