@@ -1,6 +1,7 @@
 import { Room, RoomOptions, VideoPresets } from 'livekit-client';
 import { IConferenceProvider } from './provider.interface';
 import { SandboxProvider } from './sandbox.provider';
+import { LivekitProvider } from './livekit.provider';
 
 const defaultRoomOptions = {
   // automatically manage subscribed video quality
@@ -73,3 +74,5 @@ export class ConferenceSDK {
     }
   }
 }
+
+export { LivekitProvider, SandboxProvider };

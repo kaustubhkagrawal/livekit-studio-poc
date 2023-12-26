@@ -14,6 +14,9 @@ dependencies:
   '@vercel/node':
     specifier: ^3.0.14
     version: 3.0.14(@swc/core@1.3.101)
+  axios:
+    specifier: ^1.6.2
+    version: 1.6.2
   jotai:
     specifier: ^2.6.0
     version: 2.6.0(@types/react@18.2.33)(react@18.2.0)

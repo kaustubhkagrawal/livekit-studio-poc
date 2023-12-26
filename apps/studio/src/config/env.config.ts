@@ -1,4 +1,6 @@
 export const envConfig = {
+  apiUrl:
+    import.meta.env.VITE_APP_API_URL ?? window.location.href.split('?')[0],
   conference: {
     livekit: {
       wsUrl:
