@@ -13,12 +13,19 @@ interface PreJoinProps {
 }
 
 export function PreJoin({ next, roomName, apiUrl }: PreJoinProps) {
-  const { register, handleSubmit } = useForm<InferType<typeof joinFormSchema>>({
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isValid },
+  } = useForm<InferType<typeof joinFormSchema>>({
+    mode: 'all',
     resolver: yupResolver(joinFormSchema),
     defaultValues: {
       roomName: roomName ?? '',
     },
   });
+
+  console.log('errors', errors);
 
   const onSubmit = async (data: InferType<typeof joinFormSchema>) => {
     try {
@@ -36,9 +43,27 @@ export function PreJoin({ next, roomName, apiUrl }: PreJoinProps) {
     <div className="flex min-h-screen justify-center items-center">
       <div className="w-64 lg:w-80 border-1 rounded-lg">
         <form className="px-3 py-4" onSubmit={handleSubmit(onSubmit)}>
-          <Input id="username" label="Username" {...register('userName')} />
-          <Input id="room" label="Room" {...register('roomName')} />
-          <button type="submit">Join</button>
+          <Input
+            id="username"
+            label="Username"
+            {...register('userName')}
+            hasError={!!errors.userName}
+            helperText={errors.userName?.message}
+          />
+          <Input
+            id="room"
+            label="Room"
+            {...register('roomName')}
+            hasError={!!errors.roomName}
+            helperText={errors.roomName?.message}
+          />
+          <button
+            className="w-full rounded-md border border-blue-500 py-1 text-blue-500 hover:bg-blue-500 hover:text-blue-100 disabled:border-gray-500 disabled:text-gray-500 disabled:hover:bg-gray-500 disabled:hover:text-gray-100 cursor-pointer outline-none"
+            type="submit"
+            disabled={!isValid}
+          >
+            Join
+          </button>
         </form>
       </div>
     </div>
