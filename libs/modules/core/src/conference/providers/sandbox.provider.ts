@@ -1,4 +1,4 @@
-import { Participant } from '@kaustubhkagrawal/shared';
+import { CONFERENCE_EVENTS, Participant } from '@kaustubhkagrawal/shared';
 import { CONFERENCE_PROVIDER } from '../../constants';
 import { sandboxRoomListeners } from '../room';
 import { IConferenceProvider } from './provider.types';
@@ -29,6 +29,8 @@ export class SandboxProvider implements IConferenceProvider {
 
   async refreshParticipants(): Promise<Participant[]> {
     const participants = [];
+
+    PubSub.publish(CONFERENCE_EVENTS.PARTICIPANT_REFRESH_LIST, participants);
 
     return participants;
   }

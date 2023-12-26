@@ -1,4 +1,4 @@
-import { Participant } from '@kaustubhkagrawal/shared';
+import { CONFERENCE_EVENTS, Participant } from '@kaustubhkagrawal/shared';
 import {
   Participant as LivekitParticipant,
   Room,
@@ -84,15 +84,6 @@ export class LivekitProvider implements IConferenceProvider {
   }
 
   async refreshParticipants() {
-    // const remoteIds = Array.from(LivekitSDK.room.participants.keys());
-
-    console.log('remotes refreshParticipants called');
-
-    console.log(
-      'array from remotes',
-      Array.from(this.room.participants.values())
-    );
-
     const remotes = Array.from(this.room.participants.values()).map(
       this.transformParticipant
     );
@@ -102,7 +93,7 @@ export class LivekitProvider implements IConferenceProvider {
     ];
     participants.push(...remotes);
 
-    console.log('remotes', participants);
+    PubSub.publish(CONFERENCE_EVENTS.PARTICIPANT_REFRESH_LIST, participants);
     return participants;
   }
 

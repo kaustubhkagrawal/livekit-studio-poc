@@ -9,12 +9,4 @@ export function registerListeners(provider: IConferenceProvider) {
     console.log('audio toggle action received', audio);
     PubSub.publish(CONFERENCE_EVENTS.AUDIO_TOGGLE_SUCCESS, audio);
   });
-
-  PubSub.subscribe(CONFERENCE_EVENTS.CLEANUP, () => {
-    cleanup();
-  });
-}
-
-export function cleanup() {
-  PubSub.unsubscribe(CONFERENCE_EVENTS.AUDIO);
 }

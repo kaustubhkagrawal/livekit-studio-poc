@@ -1,32 +1,29 @@
+import { CONFERENCE_EVENTS } from '@kaustubhkagrawal/shared';
+import { Room } from 'livekit-client';
 import PubSub from 'pubsub-js';
 import { IConferenceProvider } from '../../../conference';
-import { CONFERENCE_EVENTS } from '@kaustubhkagrawal/shared';
 
-export function registerListeners(provider: IConferenceProvider) {
-  if (provider.room === null) return;
-
-  PubSub.subscribe(CONFERENCE_EVENTS.VIDEO_TOGGLE, async () => {
-    const currentVideoState = provider.room?.localParticipant.isCameraEnabled;
-    const trackPublication =
-      await provider.room?.localParticipant.setMicrophoneEnabled(
-        !currentVideoState
-      );
-    if (trackPublication) {
-      PubSub.publish(
-        CONFERENCE_EVENTS.VIDEO_TOGGLE_SUCCESS,
-        !currentVideoState
-      );
-    } else {
-      // handle error
-      console.log('video toggle failed.');
-    }
-  });
-
-  PubSub.subscribe(CONFERENCE_EVENTS.CLEANUP, () => {
-    cleanup(provider);
-  });
+async function handleVideoToggle(room?: Room | null) {
+  const currentVideoState = room?.localParticipant?.isCameraEnabled;
+  const trackPublication = await room?.localParticipant?.setMicrophoneEnabled?.(
+    !currentVideoState
+  );
+  if (trackPublication) {
+    PubSub.publish(CONFERENCE_EVENTS.VIDEO_TOGGLE_SUCCESS, !currentVideoState);
+  } else {
+    // handle error
+    console.log('video toggle failed.');
+  }
 }
 
-export function cleanup(provider: IConferenceProvider) {
-  PubSub.unsubscribe(CONFERENCE_EVENTS.VIDEO);
+/**
+ *
+ * Register Listeners
+ * @param provider IConferenceProvider
+ * @returns void
+ */
+export function registerListeners(provider: IConferenceProvider) {
+  PubSub.subscribe(CONFERENCE_EVENTS.VIDEO_TOGGLE, () =>
+    handleVideoToggle(provider.room)
+  );
 }

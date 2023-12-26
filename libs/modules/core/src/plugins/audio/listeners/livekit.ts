@@ -22,12 +22,4 @@ export function registerListeners(provider: IConferenceProvider) {
       console.log('audio toggle failed.');
     }
   });
-
-  PubSub.subscribe(CONFERENCE_EVENTS.CLEANUP, () => {
-    cleanup();
-  });
-}
-
-export function cleanup() {
-  PubSub.unsubscribe(CONFERENCE_EVENTS.AUDIO);
 }

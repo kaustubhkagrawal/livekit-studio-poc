@@ -16,7 +16,9 @@ function participantConnectedListener<T extends Participant>(
 }
 
 export default function listeners(provider: IConferenceProvider) {
-  // provider.room?.on(RoomEvent.Connected )
+  provider.room?.on(RoomEvent.Connected, () => {
+    provider.refreshParticipants();
+  });
 
   // Participant Listeners
   provider.room?.on(RoomEvent.ParticipantConnected, (participant) =>

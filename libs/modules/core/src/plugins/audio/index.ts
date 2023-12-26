@@ -4,7 +4,10 @@ import listeners from './listeners';
 
 export const audioPlugin: IPlugin = {
   name: CONFERENCE_EVENTS.AUDIO,
-  registerListeners(provider) {
+  register(provider) {
     listeners[provider.name].registerListeners(provider);
+    PubSub.subscribe(CONFERENCE_EVENTS.CLEANUP, () =>
+      PubSub.unsubscribe(this.name)
+    );
   },
 };

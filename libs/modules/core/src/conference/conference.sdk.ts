@@ -27,7 +27,7 @@ export class ConferenceSDK {
 
   public static registerCorePlugins() {
     Object.keys(corePlugins).forEach((pluginName) => {
-      corePlugins[pluginName].registerListeners(this.provider);
+      corePlugins[pluginName].register(this.provider);
     });
   }
 
