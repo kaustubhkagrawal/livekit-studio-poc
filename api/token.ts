@@ -14,7 +14,7 @@ export default async (request: VercelRequest, response: VercelResponse) => {
 
   if (request.method === 'POST') {
     const { body = {} } = request;
-    const { roomName = 'xyz', username = '' } = body;
+    const { roomName = 'xyz', userName = '' } = body;
 
     const apiKey = process.env.VITE_APP_LIVEKIT_API_KEY ?? '';
     const apiSecret = process.env.VITE_APP_LIVEKIT_API_SECRET ?? '';
@@ -24,7 +24,7 @@ export default async (request: VercelRequest, response: VercelResponse) => {
     }
 
     const at = new AccessToken(apiKey, apiSecret, {
-      identity: username,
+      identity: userName,
     });
     at.addGrant({ roomJoin: true, room: roomName });
 
