@@ -3,9 +3,11 @@ import { IConferenceProvider } from '../../../conference';
 import { CONFERENCE_EVENTS } from '@kaustubhkagrawal/shared';
 
 export function registerListeners(provider: IConferenceProvider) {
-  PubSub.subscribe(CONFERENCE_EVENTS.AUDIO_TOGGLE, (event, payload) => {
-    console.log('audio toggle action received', payload);
-    PubSub.publish(CONFERENCE_EVENTS.AUDIO_TOGGLE_SUCCESS, payload);
+  let audio = false;
+  PubSub.subscribe(CONFERENCE_EVENTS.AUDIO_TOGGLE, () => {
+    audio = !audio;
+    console.log('audio toggle action received', audio);
+    PubSub.publish(CONFERENCE_EVENTS.AUDIO_TOGGLE_SUCCESS, audio);
   });
 
   PubSub.subscribe(CONFERENCE_EVENTS.CLEANUP, () => {

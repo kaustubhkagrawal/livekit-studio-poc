@@ -5,11 +5,17 @@ import { CONFERENCE_EVENTS } from '@kaustubhkagrawal/shared';
 export function registerListeners(provider: IConferenceProvider) {
   if (provider.room === null) return;
 
-  PubSub.subscribe(CONFERENCE_EVENTS.VIDEO_TOGGLE, async (event, payload) => {
+  PubSub.subscribe(CONFERENCE_EVENTS.VIDEO_TOGGLE, async () => {
+    const currentVideoState = provider.room?.localParticipant.isCameraEnabled;
     const trackPublication =
-      await provider.room?.localParticipant.setMicrophoneEnabled(payload);
+      await provider.room?.localParticipant.setMicrophoneEnabled(
+        !currentVideoState
+      );
     if (trackPublication) {
-      PubSub.publish(CONFERENCE_EVENTS.VIDEO_TOGGLE_SUCCESS, payload);
+      PubSub.publish(
+        CONFERENCE_EVENTS.VIDEO_TOGGLE_SUCCESS,
+        !currentVideoState
+      );
     } else {
       // handle error
       console.log('video toggle failed.');

@@ -5,7 +5,7 @@ import { CONFERENCE_EVENTS } from '@kaustubhkagrawal/shared';
 export function registerListeners(provider: IConferenceProvider) {
   if (provider.room === null) return;
 
-  PubSub.subscribe(CONFERENCE_EVENTS.AUDIO_TOGGLE, async (event, payload) => {
+  PubSub.subscribe(CONFERENCE_EVENTS.AUDIO_TOGGLE, async () => {
     const currentAudioState =
       provider.room?.localParticipant.isMicrophoneEnabled;
     const trackPublication =
