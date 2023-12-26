@@ -1,6 +1,6 @@
 import PubSub from 'pubsub-js';
 import { IConferenceProvider } from '../../../conference';
-import { CONFERENCE_EVENTS } from '../../../constants/events';
+import { CONFERENCE_EVENTS } from '@kaustubhkagrawal/shared';
 
 export function registerListeners(provider: IConferenceProvider) {
   if (provider.room === null) return;

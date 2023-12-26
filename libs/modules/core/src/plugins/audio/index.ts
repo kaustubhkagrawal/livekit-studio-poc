@@ -1,4 +1,4 @@
-import { CONFERENCE_EVENTS } from '../../constants/events';
+import { CONFERENCE_EVENTS } from '@kaustubhkagrawal/shared';
 import { IPlugin } from '../plugin';
 import listeners from './listeners';
 
