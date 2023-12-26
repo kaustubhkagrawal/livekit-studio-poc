@@ -5,8 +5,12 @@ export enum CONFERENCE_EVENTS {
   CONFERENCE_LEAVE = 'core.conference.leave',
   CONFERENCE_LEAVE_SUCCESS = 'core.conference.leave.success',
   CONFERENCE_CONTEXT_UPDATE = 'core.conference.data.update',
+  PARTICIPANT = 'core.participant',
+  AUDIO = 'core.audio',
   AUDIO_TOGGLE = 'core.audio.toggle',
   AUDIO_TOGGLE_SUCCESS = 'core.audio.toggle.success',
+  VIDEO = 'core.video',
   VIDEO_TOGGLE = 'core.video.toggle',
   VIDEO_TOGGLE_SUCCESS = 'core.video.toggle.success',
+  CLEANUP = 'core.cleanup',
 }

@@ -1,7 +1,8 @@
 import { Room, RoomOptions, VideoPresets } from 'livekit-client';
-import { IConferenceProvider } from './provider.interface';
+import { IConferenceProvider } from './provider.types';
 import { SandboxProvider } from './sandbox.provider';
 import { LivekitProvider } from './livekit.provider';
+import { corePlugins } from '../../plugins';
 
 const defaultRoomOptions = {
   // automatically manage subscribed video quality
@@ -63,6 +64,12 @@ export class ConferenceSDK {
     }
   }
 
+  public static registerCorePlugins() {
+    Object.keys(corePlugins).forEach((pluginName) => {
+      corePlugins[pluginName].registerListeners(this.provider);
+    });
+  }
+
   static getParticipant(sid: string) {
     return ConferenceSDK.room.participants.get(sid);
   }
@@ -76,3 +83,4 @@ export class ConferenceSDK {
 }
 
 export { LivekitProvider, SandboxProvider };
+export * from './provider.types';

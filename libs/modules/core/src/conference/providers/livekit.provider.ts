@@ -1,15 +1,14 @@
 import { Room, RoomOptions } from 'livekit-client';
-import { IConferenceProvider } from './provider.interface';
-import { audioPlugin } from '../../audio/index.livekit';
-import { videoPlugin } from '../../video/index.livekit';
-import { participantPlugin } from '../../participant/index.livekit';
+import { CONFERENCE_PROVIDER } from '../../constants';
+import { IConferenceProvider } from './provider.types';
 
 interface LivekitProviderOptions extends RoomOptions {
   url: string;
 }
 export class LivekitProvider implements IConferenceProvider {
   private options: LivekitProviderOptions;
-  private room: Room;
+  public room: Room;
+  name = CONFERENCE_PROVIDER.LIVEKIT;
 
   constructor(options: LivekitProviderOptions) {
     this.options = options;
@@ -17,11 +16,7 @@ export class LivekitProvider implements IConferenceProvider {
     this.room = new Room(sdkOpts);
   }
 
-  init() {
-    audioPlugin.registerListeners(this.room);
-    videoPlugin.registerListeners(this.room);
-    participantPlugin.registerListeners(this.room);
-  }
+  init() {}
 
   /**
    *

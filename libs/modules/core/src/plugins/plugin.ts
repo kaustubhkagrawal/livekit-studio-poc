@@ -1,10 +1,7 @@
-export interface IPluginConfig {
-  enabled: boolean;
-}
+import { IConferenceProvider } from '../conference/providers/provider.types';
 
-export interface IPlugin<T extends IPluginConfig> {
+export interface IPlugin {
   name: string;
-  config: T;
-  register: (config: T) => void;
-  cleanup: () => void;
+
+  registerListeners: (provider: IConferenceProvider) => void;
 }

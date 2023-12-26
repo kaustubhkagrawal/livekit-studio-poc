@@ -10,3 +10,8 @@ export enum CONFERENCE_STATES {
 export enum CONTEXT_UPDATE_TYPE {
   SET = 'set',
 }
+
+export enum CONFERENCE_PROVIDER {
+  LIVEKIT = 'livekit',
+  SANDBOX = 'sandbox',
+}
