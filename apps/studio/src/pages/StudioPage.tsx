@@ -20,9 +20,9 @@ export function StudioPage(props: StudioPageProps) {
         url: envConfig.conference.livekit.wsUrl,
       });
 
-      ConferenceSDK.registerProvider(provider);
+      await ConferenceSDK.registerProvider(provider);
 
-      ConferenceSDK.provider.connect(token);
+      await ConferenceSDK.provider.connect(token);
       // ConferenceSDK.init();
       // ConferenceSDK.room.connect(envConfig.conference.livekit.wsUrl, token);
 
