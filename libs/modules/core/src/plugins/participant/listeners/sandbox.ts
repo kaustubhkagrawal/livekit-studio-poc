@@ -1,15 +1,23 @@
-import { Participant, RoomEvent } from 'livekit-client';
+import { CONFERENCE_EVENTS } from '@kaustubhkagrawal/shared';
+import { Participant as LivekitParticipant, RoomEvent } from 'livekit-client';
 import PubSub from 'pubsub-js';
 import { IConferenceProvider } from '../../../conference';
-import { CONFERENCE_EVENTS } from '@kaustubhkagrawal/shared';
 
 export function registerListeners(provider: IConferenceProvider) {
   if (provider.room === null) return;
 
-  provider.room?.on(
+  // TODO: Mock this later.
+  provider.room.on(
     RoomEvent.ParticipantConnected,
-    (participant: Participant) => {
-      console.log('participant', participant);
+    (participant: LivekitParticipant) => {
+      const transformedParticipant = provider.transformParticipant(participant);
+
+      PubSub.publish(
+        CONFERENCE_EVENTS.PARTICIPANT_CONNECTED,
+        transformedParticipant
+      );
+
+      provider.refreshParticipants();
     }
   );
 

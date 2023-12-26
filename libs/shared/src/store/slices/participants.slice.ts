@@ -16,6 +16,9 @@ export const participantsSlice = createSlice({
     addParticipant(state, { payload }: PayloadAction<Participant>) {
       state.participants.push(payload);
     },
+    setParticipants(state, { payload }: PayloadAction<Participant[]>) {
+      state.participants = payload;
+    },
   },
 });
 

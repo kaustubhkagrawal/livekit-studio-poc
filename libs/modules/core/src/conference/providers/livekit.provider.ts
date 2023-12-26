@@ -1,4 +1,10 @@
-import { Room, RoomOptions, VideoPresets } from 'livekit-client';
+import { CONFERENCE_EVENTS, Participant } from '@kaustubhkagrawal/shared';
+import {
+  Participant as LivekitParticipant,
+  Room,
+  RoomOptions,
+  VideoPresets,
+} from 'livekit-client';
 import { CONFERENCE_PROVIDER } from '../../constants';
 import { IConferenceProvider } from './provider.types';
 
@@ -41,6 +47,53 @@ export class LivekitProvider implements IConferenceProvider {
     } else {
       console.error('Please provide a valid token.');
     }
+  }
+
+  transformParticipant<T extends Participant = LivekitParticipant>(
+    participant: T
+  ): Participant {
+    const {
+      sid,
+      name,
+      metadata,
+      identity,
+      isSpeaking,
+      isAgent,
+      isCameraEnabled,
+      isLocal,
+      isMicrophoneEnabled,
+      isScreenShareEnabled,
+      audioLevel,
+    } = participant;
+
+    return {
+      sid,
+      name,
+      metadata,
+      identity,
+      isSpeaking,
+      isAgent,
+      isCameraEnabled,
+      isLocal,
+      isMicrophoneEnabled,
+      isScreenShareEnabled,
+      audioLevel,
+    };
+  }
+
+  async refreshParticipants() {
+    // const remoteIds = Array.from(LivekitSDK.room.participants.keys());
+    const remotes = Array.from(this.room.participants.values()).map(
+      this.transformParticipant
+    );
+    const participants: Participant[] = [
+      this.transformParticipant(this.room.localParticipant),
+    ];
+    participants.push(...remotes);
+
+    PubSub.publish(CONFERENCE_EVENTS.PARTICIPANT_REFRESH_LIST, participants);
+
+    return participants;
   }
 
   private cleanup() {}

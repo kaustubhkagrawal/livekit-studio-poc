@@ -1,3 +1,4 @@
+import { CONFERENCE_EVENTS, Participant } from '@kaustubhkagrawal/shared';
 import { CONFERENCE_PROVIDER } from '../../constants';
 import { IConferenceProvider } from './provider.types';
 
@@ -18,6 +19,18 @@ export class SandboxProvider implements IConferenceProvider {
   async connect(token: string = '') {
     console.log('token used', token);
     console.log('Connection established');
+  }
+
+  transformParticipant<T extends Participant>(participant: T): Participant {
+    return participant;
+  }
+
+  async refreshParticipants(): Promise<Participant[]> {
+    const participants = [];
+
+    PubSub.publish(CONFERENCE_EVENTS.PARTICIPANT_REFRESH_LIST, participants);
+
+    return participants;
   }
 
   private cleanup() {}

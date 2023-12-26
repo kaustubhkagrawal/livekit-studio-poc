@@ -7,6 +7,7 @@ export enum CONFERENCE_EVENTS {
   CONFERENCE_CONTEXT_UPDATE = 'core.conference.data.update',
   PARTICIPANT = 'core.participant',
   PARTICIPANT_CONNECTED = 'core.participant.connected',
+  PARTICIPANT_REFRESH_LIST = 'core.participant.list.refresh',
   AUDIO = 'core.audio',
   AUDIO_TOGGLE = 'core.audio.toggle.trigger',
   AUDIO_TOGGLE_SUCCESS = 'core.audio.toggle.success',
