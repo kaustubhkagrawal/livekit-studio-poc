@@ -6,7 +6,7 @@ import {
   VideoPresets,
 } from 'livekit-client';
 import { CONFERENCE_PROVIDER } from '../../constants';
-import { roomPlugin } from '../../plugins/room';
+import { roomPlugin } from '../room';
 import { IConferenceProvider } from './provider.types';
 
 const defaultRoomOptions = {

@@ -1,6 +1,6 @@
 import { Participant } from '@kaustubhkagrawal/shared';
 import { CONFERENCE_PROVIDER } from '../../constants';
-import { roomPlugin } from '../../plugins/room';
+import { roomPlugin } from '../room';
 import { IConferenceProvider } from './provider.types';
 
 interface SandboxProviderOptions {}
