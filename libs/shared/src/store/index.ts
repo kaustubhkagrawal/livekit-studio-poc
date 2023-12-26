@@ -1,9 +1,10 @@
 import { configureStore } from '@reduxjs/toolkit';
-import { controlsReducer } from './slices';
+import { controlsReducer, participantsReducer } from './slices';
 
 export const store = configureStore({
   reducer: {
     controls: controlsReducer,
+    participants: participantsReducer,
   },
 });
 

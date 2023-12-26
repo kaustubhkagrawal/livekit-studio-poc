@@ -1,13 +1,13 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-export interface Controls {
+export interface ControlsSliceData {
   audio: boolean;
   video: boolean;
   screenShare: boolean;
   record: boolean;
 }
 
-const initialState: Controls = {
+const initialState: ControlsSliceData = {
   audio: false,
   video: false,
   screenShare: false,

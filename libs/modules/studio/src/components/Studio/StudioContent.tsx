@@ -1,7 +1,8 @@
+import { RootState } from '@kaustubhkagrawal/shared';
 import { useLayout } from '@kaustubhkagrawal/ui';
 import { forwardRef } from 'react';
+import { useSelector } from 'react-redux';
 import { StudioTile } from './StudioTile';
-import { ConferenceSDK } from '@kaustubhkagrawal/core';
 
 interface StudioContentProps {
   footerHeight: number;
@@ -11,13 +12,14 @@ interface StudioContentProps {
 
 const StudioContent = forwardRef<HTMLDivElement, StudioContentProps>(
   ({ footerHeight, asideWidth, ...props }, parentRef) => {
-    const participants = Object.keys(
-      ConferenceSDK.provider.room?.participants ?? {}
+    const participants = useSelector(
+      (state: RootState) => state.participants.participants
     );
 
     const [ref, tileCalc] = useLayout<HTMLDivElement>({
       items: participants.length,
     });
+
     console.log('tileCalc', tileCalc);
 
     return (
@@ -30,10 +32,10 @@ const StudioContent = forwardRef<HTMLDivElement, StudioContentProps>(
           width: `calc(100% - ${asideWidth}px)`,
         }}
       >
-        {participants.map((el, i) => (
+        {participants.map((participant, i) => (
           <StudioTile
-            key={i}
-            id={`participant-${el}`}
+            key={participant.sid}
+            participant={participant}
             style={{
               width: `${tileCalc.dim.w}px`,
             }}

@@ -2,6 +2,7 @@ import { ConferenceSDK, LivekitProvider } from '@kaustubhkagrawal/core';
 import { PreJoin, Studio } from '@kaustubhkagrawal/studio';
 import { envConfig } from '../config';
 import { ComponentProps, useState } from 'react';
+import { useConferenceStoreListeners } from '@kaustubhkagrawal/shared';
 
 interface StudioPageProps {}
 
@@ -32,6 +33,8 @@ export function StudioPage(props: StudioPageProps) {
       setJoined(false);
     }
   };
+
+  useConferenceStoreListeners();
 
   return joined ? (
     <Studio />

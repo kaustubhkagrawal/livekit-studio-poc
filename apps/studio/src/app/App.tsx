@@ -1,8 +1,14 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
+import { Provider } from 'react-redux';
 import { StudioPage } from '../pages/StudioPage';
+import { store } from '@kaustubhkagrawal/shared';
 
 export function App() {
-  return <StudioPage />;
+  return (
+    <Provider store={store}>
+      <StudioPage />
+    </Provider>
+  );
 }
 
 export default App;
