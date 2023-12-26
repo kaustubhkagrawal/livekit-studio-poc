@@ -1,8 +1,8 @@
-import { Room, RoomEvent } from 'livekit-client';
+import { Participant, Room, RoomEvent } from 'livekit-client';
 
 export const participantPlugin = {
   registerListeners(room: Room) {
-    room.on(RoomEvent.ParticipantConnected, (participant) => {
+    room.on(RoomEvent.ParticipantConnected, (participant: Participant) => {
       console.log('participant', participant);
     });
   },
