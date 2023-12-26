@@ -1,6 +1,6 @@
 import { Participant } from '@kaustubhkagrawal/shared';
 import { CONFERENCE_PROVIDER } from '../../constants';
-import { roomPlugin } from '../room';
+import { sandboxRoomListeners } from '../room';
 import { IConferenceProvider } from './provider.types';
 
 interface SandboxProviderOptions {}
@@ -20,7 +20,7 @@ export class SandboxProvider implements IConferenceProvider {
   async connect(token: string = '') {
     console.log('token used', token);
     console.log('Connection established');
-    roomPlugin.registerListeners(this);
+    sandboxRoomListeners(this);
   }
 
   transformParticipant<T extends Participant>(participant: T): Participant {

@@ -5,10 +5,10 @@ import { IConferenceProvider } from '../../../conference';
 export function registerListeners(provider: IConferenceProvider) {
   if (provider.room === null) return;
 
-  PubSub.subscribe(CONFERENCE_EVENTS.PARTICIPANT_CONNECTED, () => {
+  PubSub.subscribe(CONFERENCE_EVENTS.PARTICIPANT_CONNECTED, async () => {
     PubSub.publish(
       CONFERENCE_EVENTS.PARTICIPANT_REFRESH_LIST,
-      provider.refreshParticipants()
+      await provider.refreshParticipants()
     );
   });
 

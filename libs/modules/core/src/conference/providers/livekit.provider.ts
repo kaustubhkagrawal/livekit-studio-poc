@@ -6,8 +6,8 @@ import {
   VideoPresets,
 } from 'livekit-client';
 import { CONFERENCE_PROVIDER } from '../../constants';
-import { roomPlugin } from '../room';
 import { IConferenceProvider } from './provider.types';
+import { livekitRoomListeners } from '../room';
 
 const defaultRoomOptions = {
   // automatically manage subscribed video quality
@@ -45,7 +45,7 @@ export class LivekitProvider implements IConferenceProvider {
   async connect(token: string = '') {
     if (token) {
       await this.room.connect(this.options.url, token);
-      roomPlugin.registerListeners(this);
+      livekitRoomListeners(this);
     } else {
       console.error('Please provide a valid token.');
     }
@@ -85,14 +85,24 @@ export class LivekitProvider implements IConferenceProvider {
 
   async refreshParticipants() {
     // const remoteIds = Array.from(LivekitSDK.room.participants.keys());
+
+    console.log('remotes refreshParticipants called');
+
+    console.log(
+      'array from remotes',
+      Array.from(this.room.participants.values())
+    );
+
     const remotes = Array.from(this.room.participants.values()).map(
       this.transformParticipant
     );
+
     const participants: Participant[] = [
       this.transformParticipant(this.room.localParticipant),
     ];
     participants.push(...remotes);
 
+    console.log('remotes', participants);
     return participants;
   }
 

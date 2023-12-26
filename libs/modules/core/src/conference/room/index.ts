@@ -1,10 +1,4 @@
-import { CONFERENCE_EVENTS } from '@kaustubhkagrawal/shared';
-import { IPlugin } from '../plugin';
-import listeners from './listeners';
+import livekitRoomListeners from './livekit';
+import sandboxRoomListeners from './sandbox';
 
-export const roomPlugin: IPlugin = {
-  name: CONFERENCE_EVENTS.ROOM,
-  registerListeners(provider) {
-    listeners[provider.name].registerListeners(provider);
-  },
-};
+export { livekitRoomListeners, sandboxRoomListeners };
