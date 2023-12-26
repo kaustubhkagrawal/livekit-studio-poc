@@ -22,16 +22,10 @@ export function StudioPage(props: StudioPageProps) {
 
       await ConferenceSDK.registerProvider(provider);
 
+      await ConferenceSDK.registerCorePlugins();
+
       await ConferenceSDK.provider.connect(token);
-      // ConferenceSDK.init();
-      // ConferenceSDK.room.connect(envConfig.conference.livekit.wsUrl, token);
 
-      // console.log('connected to room', ConferenceSDK.room.name);
-
-      // // publish local camera and mic tracks
-      // await ConferenceSDK.room.localParticipant.enableCameraAndMicrophone();
-
-      console.log('items', ConferenceSDK.room.numParticipants);
       setJoined(true);
     } catch (err) {
       console.log(err);

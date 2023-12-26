@@ -1,4 +1,5 @@
 import { Participant, RoomEvent } from 'livekit-client';
+import PubSub from 'pubsub-js';
 import { IConferenceProvider } from '../../../conference';
 import { CONFERENCE_EVENTS } from '../../../constants/events';
 

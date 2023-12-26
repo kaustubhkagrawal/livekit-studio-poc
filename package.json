@@ -48,7 +48,6 @@
     "@swc/helpers": "~0.5.2",
     "@vercel/node": "^3.0.14",
     "axios": "^1.6.2",
-    "jotai": "^2.6.0",
     "livekit-client": "^1.15.5",
     "livekit-server-sdk": "^1.2.7",
     "pubsub-js": "^1.9.4",

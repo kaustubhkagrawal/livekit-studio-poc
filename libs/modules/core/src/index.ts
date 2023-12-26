@@ -1,2 +1,2 @@
-export * from './plugins';
 export * from './conference';
+export * from './plugins';
