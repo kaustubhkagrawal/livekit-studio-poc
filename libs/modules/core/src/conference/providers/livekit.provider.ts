@@ -1,6 +1,19 @@
-import { Room, RoomOptions } from 'livekit-client';
+import { Room, RoomOptions, VideoPresets } from 'livekit-client';
 import { CONFERENCE_PROVIDER } from '../../constants';
 import { IConferenceProvider } from './provider.types';
+
+const defaultRoomOptions = {
+  // automatically manage subscribed video quality
+  adaptiveStream: true,
+
+  // optimize publishing bandwidth and CPU for published tracks
+  dynacast: true,
+
+  // default capture settings
+  videoCaptureDefaults: {
+    resolution: VideoPresets.h720.resolution,
+  },
+};
 
 interface LivekitProviderOptions extends RoomOptions {
   url: string;
@@ -11,7 +24,7 @@ export class LivekitProvider implements IConferenceProvider {
   name = CONFERENCE_PROVIDER.LIVEKIT;
 
   constructor(options: LivekitProviderOptions) {
-    this.options = options;
+    this.options = Object.assign(defaultRoomOptions, options);
     const { url, ...sdkOpts } = options;
     this.room = new Room(sdkOpts);
   }
