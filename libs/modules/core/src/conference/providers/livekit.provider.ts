@@ -1,4 +1,4 @@
-import { CONFERENCE_EVENTS, Participant } from '@kaustubhkagrawal/shared';
+import { Participant } from '@kaustubhkagrawal/shared';
 import {
   Participant as LivekitParticipant,
   Room,
@@ -6,6 +6,7 @@ import {
   VideoPresets,
 } from 'livekit-client';
 import { CONFERENCE_PROVIDER } from '../../constants';
+import { roomPlugin } from '../../plugins/room';
 import { IConferenceProvider } from './provider.types';
 
 const defaultRoomOptions = {
@@ -43,7 +44,8 @@ export class LivekitProvider implements IConferenceProvider {
    */
   async connect(token: string = '') {
     if (token) {
-      this.room.connect(this.options.url, token);
+      await this.room.connect(this.options.url, token);
+      roomPlugin.registerListeners(this);
     } else {
       console.error('Please provide a valid token.');
     }
@@ -90,8 +92,6 @@ export class LivekitProvider implements IConferenceProvider {
       this.transformParticipant(this.room.localParticipant),
     ];
     participants.push(...remotes);
-
-    PubSub.publish(CONFERENCE_EVENTS.PARTICIPANT_REFRESH_LIST, participants);
 
     return participants;
   }

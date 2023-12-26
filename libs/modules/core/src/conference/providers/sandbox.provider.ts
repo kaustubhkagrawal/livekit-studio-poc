@@ -1,5 +1,6 @@
-import { CONFERENCE_EVENTS, Participant } from '@kaustubhkagrawal/shared';
+import { Participant } from '@kaustubhkagrawal/shared';
 import { CONFERENCE_PROVIDER } from '../../constants';
+import { roomPlugin } from '../../plugins/room';
 import { IConferenceProvider } from './provider.types';
 
 interface SandboxProviderOptions {}
@@ -19,6 +20,7 @@ export class SandboxProvider implements IConferenceProvider {
   async connect(token: string = '') {
     console.log('token used', token);
     console.log('Connection established');
+    roomPlugin.registerListeners(this);
   }
 
   transformParticipant<T extends Participant>(participant: T): Participant {
@@ -27,8 +29,6 @@ export class SandboxProvider implements IConferenceProvider {
 
   async refreshParticipants(): Promise<Participant[]> {
     const participants = [];
-
-    PubSub.publish(CONFERENCE_EVENTS.PARTICIPANT_REFRESH_LIST, participants);
 
     return participants;
   }
