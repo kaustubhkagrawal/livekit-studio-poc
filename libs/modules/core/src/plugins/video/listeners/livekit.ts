@@ -22,7 +22,7 @@ async function handleVideoToggle(room?: Room | null) {
  * @param provider IConferenceProvider
  * @returns void
  */
-export function registerListeners(provider: IConferenceProvider) {
+export default function registerListeners(provider: IConferenceProvider) {
   PubSub.subscribe(CONFERENCE_EVENTS.VIDEO_TOGGLE, () =>
     handleVideoToggle(provider.room)
   );

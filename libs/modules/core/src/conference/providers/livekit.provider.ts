@@ -2,6 +2,7 @@ import { CONFERENCE_EVENTS, Participant } from '@kaustubhkagrawal/shared';
 import {
   Participant as LivekitParticipant,
   Room,
+  RoomEvent,
   RoomOptions,
   VideoPresets,
 } from 'livekit-client';
@@ -93,7 +94,7 @@ export class LivekitProvider implements IConferenceProvider {
     ];
     participants.push(...remotes);
 
-    PubSub.publish(CONFERENCE_EVENTS.PARTICIPANT_REFRESH_LIST, participants);
+    PubSub.publish(CONFERENCE_EVENTS.PARTICIPANTS_REFRESH_LIST, participants);
     return participants;
   }
 

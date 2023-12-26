@@ -5,7 +5,7 @@ import listeners from './listeners';
 export const participantPlugin: IPlugin = {
   name: CONFERENCE_EVENTS.PARTICIPANT,
   register(provider) {
-    listeners[provider.name].registerListeners(provider);
+    listeners[provider.name](provider);
     PubSub.subscribe(CONFERENCE_EVENTS.CLEANUP, () =>
       PubSub.unsubscribe(this.name)
     );

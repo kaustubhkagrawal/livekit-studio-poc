@@ -8,7 +8,7 @@ import { CONFERENCE_EVENTS } from '@kaustubhkagrawal/shared';
  * @param provider IConferenceProvider
  * @returns void
  */
-export function registerListeners(provider: IConferenceProvider) {
+export default function registerListeners(provider: IConferenceProvider) {
   let video = false;
   PubSub.subscribe(CONFERENCE_EVENTS.VIDEO_TOGGLE, () => {
     video = !video;

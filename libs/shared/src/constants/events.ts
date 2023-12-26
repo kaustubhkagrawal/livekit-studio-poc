@@ -14,7 +14,9 @@ export enum CONFERENCE_EVENTS {
   // PARTICIPANT
   PARTICIPANT = 'core.participant',
   PARTICIPANT_CONNECTED = 'core.participant.connected',
-  PARTICIPANT_REFRESH_LIST = 'core.participant.list.refresh',
+  PARTICIPANT_DISCONNECTED = 'core.participant.disconnected',
+  PARTICIPANT_UPDATED = 'core.participant.updated',
+  PARTICIPANTS_REFRESH_LIST = 'core.participants.list.refresh',
   // AUDIO
   AUDIO = 'core.audio',
   AUDIO_TOGGLE = 'core.audio.toggle.trigger',

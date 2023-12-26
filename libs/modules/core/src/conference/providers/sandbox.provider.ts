@@ -30,7 +30,7 @@ export class SandboxProvider implements IConferenceProvider {
   async refreshParticipants(): Promise<Participant[]> {
     const participants = [];
 
-    PubSub.publish(CONFERENCE_EVENTS.PARTICIPANT_REFRESH_LIST, participants);
+    PubSub.publish(CONFERENCE_EVENTS.PARTICIPANTS_REFRESH_LIST, participants);
 
     return participants;
   }

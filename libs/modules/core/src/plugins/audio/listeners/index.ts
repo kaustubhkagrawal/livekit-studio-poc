@@ -1,6 +1,6 @@
 import { CONFERENCE_PROVIDER } from '../../../constants';
-import * as livekit from './livekit';
-import * as sandbox from './sandbox';
+import livekit from './livekit';
+import sandbox from './sandbox';
 
 export default {
   [CONFERENCE_PROVIDER.LIVEKIT]: livekit,

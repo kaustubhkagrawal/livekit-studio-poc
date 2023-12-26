@@ -26,7 +26,7 @@ export function useConferenceStoreListeners() {
     // );
 
     const PARTICIPANT_REFRESH_LIST_TOKEN = PubSub.subscribe(
-      CONFERENCE_EVENTS.PARTICIPANT_REFRESH_LIST,
+      CONFERENCE_EVENTS.PARTICIPANTS_REFRESH_LIST,
       (e, participants) => {
         console.log('participants list refresh', participants);
         dispatch(participantsActions.setParticipants(participants));
