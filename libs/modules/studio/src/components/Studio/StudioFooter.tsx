@@ -1,11 +1,13 @@
 import { forwardRef } from 'react';
 import PubSub from 'pubsub-js';
-import { CONFERENCE_EVENTS } from '@kaustubhkagrawal/shared';
+import { CONFERENCE_EVENTS, RootState } from '@kaustubhkagrawal/shared';
+import { useSelector } from 'react-redux';
 
 interface StudioFooterProps {}
 
 const StudioFooter = forwardRef<HTMLDivElement, StudioFooterProps>(
   (props, ref) => {
+    const controls = useSelector((state: RootState) => state.controls);
     return (
       <footer
         ref={ref}
@@ -16,7 +18,7 @@ const StudioFooter = forwardRef<HTMLDivElement, StudioFooterProps>(
             onClick={() => PubSub.publish(CONFERENCE_EVENTS.AUDIO_TOGGLE, true)}
           >
             {' '}
-            Toggle Audio{' '}
+            Toggle Audio {controls.audio ? 'off' : 'on'}
           </button>
         </nav>
         <div className="hstack px-6 py-2">Logo</div>

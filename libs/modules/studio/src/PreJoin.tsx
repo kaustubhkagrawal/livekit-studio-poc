@@ -25,8 +25,6 @@ export function PreJoin({ next, roomName, apiUrl }: PreJoinProps) {
     },
   });
 
-  console.log('errors', errors);
-
   const onSubmit = async (data: InferType<typeof joinFormSchema>) => {
     try {
       const response = await axios.post(`${apiUrl}api/token`, data);

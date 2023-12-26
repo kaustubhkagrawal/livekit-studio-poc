@@ -6,10 +6,17 @@ export function registerListeners(provider: IConferenceProvider) {
   if (provider.room === null) return;
 
   PubSub.subscribe(CONFERENCE_EVENTS.AUDIO_TOGGLE, async (event, payload) => {
+    const currentAudioState =
+      provider.room?.localParticipant.isMicrophoneEnabled;
     const trackPublication =
-      await provider.room?.localParticipant.setMicrophoneEnabled(payload);
+      await provider.room?.localParticipant.setMicrophoneEnabled(
+        !currentAudioState
+      );
     if (trackPublication) {
-      PubSub.publish(CONFERENCE_EVENTS.AUDIO_TOGGLE_SUCCESS, payload);
+      PubSub.publish(
+        CONFERENCE_EVENTS.AUDIO_TOGGLE_SUCCESS,
+        !currentAudioState
+      );
     } else {
       // handle error
       console.log('audio toggle failed.');
