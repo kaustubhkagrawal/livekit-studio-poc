@@ -36,3 +36,7 @@ export enum CONFERENCE_EVENTS {
   // CLEANUP
   CLEANUP = 'core.cleanup',
 }
+
+export enum SANDBOX_EVENTS {
+  PARTICIPANTS_CREATED = 'sandbox.participants.created',
+}

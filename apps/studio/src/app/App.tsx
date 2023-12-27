@@ -4,6 +4,19 @@ import { StudioPage } from '../pages/StudioPage';
 import { store } from '@kaustubhkagrawal/shared';
 import { useEffect } from 'react';
 import PubSub from 'pubsub-js';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { SandboxPage } from '../pages/SandboxPage';
+
+const router = createBrowserRouter([
+  {
+    path: '/',
+    element: <StudioPage />,
+  },
+  {
+    path: '/sandbox',
+    element: <SandboxPage />,
+  },
+]);
 
 export function App() {
   useEffect(() => {
@@ -18,7 +31,7 @@ export function App() {
 
   return (
     <Provider store={store}>
-      <StudioPage />
+      <RouterProvider router={router} />
     </Provider>
   );
 }

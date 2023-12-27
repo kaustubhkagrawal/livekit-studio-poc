@@ -1,11 +1,11 @@
-import { ConferenceSDK, LivekitProvider } from '@kaustubhkagrawal/core';
-import { PreJoin, Studio } from '@kaustubhkagrawal/studio';
-import { envConfig } from '../config';
-import { ComponentProps, useEffect, useState } from 'react';
+import { ConferenceSDK, SandboxProvider } from '@kaustubhkagrawal/core';
 import { useConferenceStoreListeners } from '@kaustubhkagrawal/shared';
+import { PreJoin, Studio } from '@kaustubhkagrawal/studio';
+import { ComponentProps, useEffect, useState } from 'react';
+import { envConfig } from '../config';
 
 async function providerInitialize() {
-  const provider = new LivekitProvider({
+  const provider = new SandboxProvider({
     url: envConfig.conference.livekit.wsUrl,
   });
 
@@ -14,13 +14,13 @@ async function providerInitialize() {
   await ConferenceSDK.registerCorePlugins();
 }
 
-interface StudioPageProps {}
+interface SandboxPageProps {}
 
 /**
  *
- * Main Studio(Video Conference) Page.
+ * Main Sandbox(Mock Video Conference) Page.
  */
-export function StudioPage(props: StudioPageProps) {
+export function SandboxPage(props: SandboxPageProps) {
   const [joined, setJoined] = useState(false);
 
   useEffect(() => {
