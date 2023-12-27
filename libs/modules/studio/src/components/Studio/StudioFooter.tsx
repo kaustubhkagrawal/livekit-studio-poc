@@ -2,6 +2,7 @@ import { forwardRef } from 'react';
 import PubSub from 'pubsub-js';
 import { CONFERENCE_EVENTS, RootState } from '@kaustubhkagrawal/shared';
 import { useSelector } from 'react-redux';
+import { CameraOff, CameraOn, MicOff, MicOn } from '@kaustubhkagrawal/ui';
 
 interface StudioFooterProps {}
 
@@ -15,16 +16,20 @@ const StudioFooter = forwardRef<HTMLDivElement, StudioFooterProps>(
       >
         <nav className="hstack gap-2 px-4 py-2">
           <button
+            className={`rounded-md px-1 py-1 bg-white/20 cursor-pointer hover:bg-white/30 ${
+              controls.audio ? 'bg-white/30' : ''
+            }`}
             onClick={() => PubSub.publish(CONFERENCE_EVENTS.AUDIO_TOGGLE)}
           >
-            {' '}
-            Toggle Audio {controls.audio ? 'off' : 'on'}
+            {controls.audio ? <MicOn /> : <MicOff />}
           </button>
           <button
+            className={`rounded-md px-1 py-1 bg-white/20 cursor-pointer hover:bg-white/30 ${
+              controls.video ? 'bg-white/30' : ''
+            }`}
             onClick={() => PubSub.publish(CONFERENCE_EVENTS.VIDEO_TOGGLE)}
           >
-            {' '}
-            Toggle Video {controls.video ? 'off' : 'on'}
+            {controls.video ? <CameraOn /> : <CameraOff />}
           </button>
         </nav>
         <div className="hstack px-6 py-2">Logo</div>
