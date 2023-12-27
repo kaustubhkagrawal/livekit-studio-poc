@@ -7,6 +7,7 @@ import {
 import PubSub from 'pubsub-js';
 import { HTMLAttributes, useEffect, useState } from 'react';
 import { Streamer } from './Streamer';
+import { MicOff, MicOn } from '@kaustubhkagrawal/ui';
 
 interface StudioTileProps extends HTMLAttributes<HTMLDivElement> {
   participant: Participant;
@@ -15,30 +16,36 @@ interface StudioTileProps extends HTMLAttributes<HTMLDivElement> {
 export function StudioTile({ participant, ...props }: StudioTileProps) {
   const [trackSources, setTrackSources] = useState<Track.Source[]>([]);
 
+  const [isLocalMicOn, setIsLocalMicOn] = useState(false);
+
   const handleTrackSubscription = (track: MediaTrack) => {
-    if (
-      track.participantId === participant.sid &&
-      (!participant.isLocal || track.kind !== Track.Kind.Audio)
-    ) {
-      // Attach track
-      setTrackSources((tracks) => {
-        console.log('track source set');
-        if (!tracks?.includes(track.source)) {
-          return [...tracks, track.source];
-        } else {
-          return [...tracks];
-        }
-      });
+    if (track.participantId === participant.sid) {
+      if (!participant.isLocal || track.kind !== Track.Kind.Audio) {
+        // Attach track
+        setTrackSources((tracks) => {
+          console.log('track source set');
+          if (!tracks?.includes(track.source)) {
+            return [...tracks, track.source];
+          } else {
+            return [...tracks];
+          }
+        });
+      } else {
+        setIsLocalMicOn(true);
+      }
     }
   };
 
   const handleTrackUnSubscription = (track: MediaTrack) => {
-    if (
-      track.participantId === participant.sid &&
-      (!participant.isLocal || track.kind !== Track.Kind.Audio)
-    ) {
-      // Attach track
-      setTrackSources(trackSources.filter((source) => source !== track.source));
+    if (track.participantId === participant.sid) {
+      if (!participant.isLocal || track.kind !== Track.Kind.Audio) {
+        // Attach track
+        setTrackSources(
+          trackSources.filter((source) => source !== track.source)
+        );
+      } else {
+        setIsLocalMicOn(false);
+      }
     }
   };
 
@@ -107,6 +114,11 @@ export function StudioTile({ participant, ...props }: StudioTileProps) {
         title={participant.identity}
         className="z-10 mt-auto bg-black/30 rounded-lg px-4 py-1 text-sm max-h-7 text-ellipsis overflow-y-hidden"
       >
+        {trackSources.includes(Track.Source.Microphone) || isLocalMicOn ? (
+          <MicOn className="inline-flex w-5 h-5 mr-2" />
+        ) : (
+          <MicOff className="inline-flex w-5 h-5 mr-2" />
+        )}
         {participant.identity}
       </div>
     </div>

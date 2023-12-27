@@ -1,7 +1,7 @@
 import { ConferenceSDK, SandboxProvider } from '@kaustubhkagrawal/core';
 import { useConferenceStoreListeners } from '@kaustubhkagrawal/shared';
-import { PreJoin, Studio } from '@kaustubhkagrawal/studio';
-import { ComponentProps, useEffect, useState } from 'react';
+import { Studio } from '@kaustubhkagrawal/studio';
+import { useEffect, useState } from 'react';
 import { envConfig } from '../config';
 
 async function providerInitialize() {

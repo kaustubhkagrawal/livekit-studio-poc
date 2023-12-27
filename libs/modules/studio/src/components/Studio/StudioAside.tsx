@@ -20,7 +20,11 @@ const StudioAside = forwardRef<HTMLDivElement, StudioAsideProps>(
           <h2 className="text-xl">Participants</h2>
           <div className="hstack gap-2 flex-wrap">
             {participants.map((participant) => (
-              <div className="vstack items-center" style={{ width: '60px' }}>
+              <div
+                key={participant.sid}
+                className="vstack items-center"
+                style={{ width: '60px' }}
+              >
                 <img
                   src={`https://gravatar.com/avatar/${participant.sid.toLowerCase()}?d=identicon`}
                   alt={participant.identity}

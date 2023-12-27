@@ -1,6 +1,7 @@
 import { yupResolver } from '@hookform/resolvers/yup';
-import { Input } from '@kaustubhkagrawal/ui';
+import { Input, Spinner } from '@kaustubhkagrawal/ui';
 import axios from 'axios';
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { InferType } from 'yup';
 import { joinFormSchema } from './schemas';
@@ -12,6 +13,7 @@ interface PreJoinProps {
 }
 
 export function PreJoin({ next, roomName, apiUrl }: PreJoinProps) {
+  const [isLoading, setIsLoading] = useState(false);
   const {
     register,
     handleSubmit,
@@ -26,6 +28,7 @@ export function PreJoin({ next, roomName, apiUrl }: PreJoinProps) {
 
   const onSubmit = async (data: InferType<typeof joinFormSchema>) => {
     try {
+      setIsLoading(true);
       const url = `${apiUrl}api/token`;
       const response = await axios.post(url, data);
 
@@ -35,6 +38,8 @@ export function PreJoin({ next, roomName, apiUrl }: PreJoinProps) {
     } catch (err) {
       console.error(err);
     }
+
+    setIsLoading(false);
   };
 
   return (
@@ -45,6 +50,7 @@ export function PreJoin({ next, roomName, apiUrl }: PreJoinProps) {
             id="username"
             label="Username"
             {...register('userName')}
+            autoFocus
             hasError={!!errors.userName}
             helperText={errors.userName?.message}
           />
@@ -60,6 +66,7 @@ export function PreJoin({ next, roomName, apiUrl }: PreJoinProps) {
             type="submit"
             disabled={!isValid}
           >
+            {isLoading ? <Spinner className="mr-2 fill-white w-4 h-4" /> : null}
             Join
           </button>
         </form>

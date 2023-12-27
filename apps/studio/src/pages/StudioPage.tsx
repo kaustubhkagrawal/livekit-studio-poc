@@ -1,8 +1,10 @@
 import { ConferenceSDK, LivekitProvider } from '@kaustubhkagrawal/core';
-import { PreJoin, Studio } from '@kaustubhkagrawal/studio';
-import { envConfig } from '../config';
-import { ComponentProps, useEffect, useState } from 'react';
 import { useConferenceStoreListeners } from '@kaustubhkagrawal/shared';
+import { PreJoin, Studio } from '@kaustubhkagrawal/studio';
+import { ComponentProps, useEffect, useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
+import { envConfig } from '../config';
+import { randomRoomName } from '../utils';
 
 async function providerInitialize() {
   const provider = new LivekitProvider({
@@ -14,6 +16,8 @@ async function providerInitialize() {
   await ConferenceSDK.registerCorePlugins();
 }
 
+const defaultRoomName = randomRoomName();
+
 interface StudioPageProps {}
 
 /**
@@ -22,6 +26,15 @@ interface StudioPageProps {}
  */
 export function StudioPage(props: StudioPageProps) {
   const [joined, setJoined] = useState(false);
+
+  const [searchParams, setSearchParams] = useSearchParams();
+  const roomName = searchParams.get('roomName');
+
+  useEffect(() => {
+    if (!roomName) {
+      setSearchParams({ roomName: defaultRoomName });
+    }
+  }, [roomName]);
 
   useEffect(() => {
     providerInitialize();
@@ -45,6 +58,10 @@ export function StudioPage(props: StudioPageProps) {
   return joined ? (
     <Studio />
   ) : (
-    <PreJoin apiUrl={envConfig.apiUrl} roomName={''} next={next} />
+    <PreJoin
+      apiUrl={envConfig.apiUrl}
+      roomName={roomName ?? defaultRoomName}
+      next={next}
+    />
   );
 }
