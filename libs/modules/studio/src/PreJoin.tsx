@@ -65,6 +65,7 @@ export function PreJoin({ next, roomName, apiUrl }: PreJoinProps) {
             label="Room"
             {...register('roomName')}
             hasError={!!errors.roomName}
+            disabled
             helperText={errors.roomName?.message}
           />
           <button
