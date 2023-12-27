@@ -83,7 +83,7 @@ export function StudioTile({ participant, ...props }: StudioTileProps) {
   return (
     <div
       id={`participant-tile-${participant.sid}`}
-      className="flex aspect-video relative rounded-xl gap-2 px-4 py-4 bg-blue-900 text-white overflow-hidden"
+      className="flex aspect-video relative rounded-xl gap-2 px-4 py-4 bg-sky-900 text-white overflow-hidden"
       {...props}
     >
       <div className="absolute top-0 right-0 bottom-0 left-0">
