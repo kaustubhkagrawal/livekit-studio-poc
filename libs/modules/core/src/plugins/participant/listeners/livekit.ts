@@ -29,7 +29,12 @@ export const participantUpdatedListener = participantListenerBuilder(
 export default function registerListeners(provider: IConferenceProvider) {
   if (provider.room === null) return;
 
+  console.log('PubSub registerListeners called');
+
   provider.room
+    .on(RoomEvent.Connected, () => {
+      provider.refreshParticipants();
+    })
     .on(RoomEvent.ParticipantConnected, (participant) =>
       participantConnectedListener(participant, provider)
     )

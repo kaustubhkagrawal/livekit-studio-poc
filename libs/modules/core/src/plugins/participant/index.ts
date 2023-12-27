@@ -11,5 +11,3 @@ export const participantPlugin: IPlugin = {
     );
   },
 };
-
-export const participantListeners = listeners;
