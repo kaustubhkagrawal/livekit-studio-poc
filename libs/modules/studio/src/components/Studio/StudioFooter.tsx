@@ -28,7 +28,11 @@ const StudioFooter = forwardRef<HTMLDivElement, StudioFooterProps>(
           </button>
         </nav>
         <div className="hstack px-6 py-2">Logo</div>
-        <nav className="hstack gap-2 px-4 py-2">Right</nav>
+        <nav className="hstack gap-2 px-4 py-2">
+          <button onClick={() => PubSub.publish(CONFERENCE_EVENTS.ROOM_LEAVE)}>
+            Leave
+          </button>
+        </nav>
       </footer>
     );
   }
