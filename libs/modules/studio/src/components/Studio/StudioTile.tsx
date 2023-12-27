@@ -16,7 +16,10 @@ export function StudioTile({ participant, ...props }: StudioTileProps) {
   const [trackSources, setTrackSources] = useState<Track.Source[]>([]);
 
   const handleTrackSubscription = (track: MediaTrack) => {
-    if (track.participantId === participant.sid) {
+    if (
+      track.participantId === participant.sid &&
+      (!participant.isLocal || track.kind !== Track.Kind.Audio)
+    ) {
       // Attach track
       setTrackSources((tracks) => {
         console.log('track source set');
@@ -30,7 +33,10 @@ export function StudioTile({ participant, ...props }: StudioTileProps) {
   };
 
   const handleTrackUnSubscription = (track: MediaTrack) => {
-    if (track.participantId === participant.sid) {
+    if (
+      track.participantId === participant.sid &&
+      (!participant.isLocal || track.kind !== Track.Kind.Audio)
+    ) {
       // Attach track
       setTrackSources(trackSources.filter((source) => source !== track.source));
     }
@@ -46,25 +52,29 @@ export function StudioTile({ participant, ...props }: StudioTileProps) {
 
     const TRACK_SUBSCRIBED_TOKEN = PubSub.subscribe(
       subscribeEvent,
-      (event, track: MediaTrack) => {
-        console.log('track subscribed');
-        if (!participant.isLocal || track.kind !== Track.Kind.Audio)
-          handleTrackSubscription(track);
-      }
+      (event, track: MediaTrack) => handleTrackSubscription(track)
+    );
+
+    const TRACK_UNMUTED_TOKEN = PubSub.subscribe(
+      CONFERENCE_EVENTS.TRACK_UNMUTED,
+      (event, track: MediaTrack) => handleTrackSubscription(track)
     );
 
     const TRACK_UNSUBSCRIBED_TOKEN = PubSub.subscribe(
       unSubscribeEvent,
-      (event, track: MediaTrack) => {
-        console.log('track un-subscribed');
-        if (!participant.isLocal || track.kind !== Track.Kind.Audio)
-          handleTrackUnSubscription(track);
-      }
+      (event, track: MediaTrack) => handleTrackUnSubscription(track)
+    );
+
+    const TRACK_MUTED_TOKEN = PubSub.subscribe(
+      CONFERENCE_EVENTS.TRACK_MUTED,
+      (event, track: MediaTrack) => handleTrackUnSubscription(track)
     );
 
     return () => {
       PubSub.unsubscribe(TRACK_SUBSCRIBED_TOKEN);
+      PubSub.unsubscribe(TRACK_UNMUTED_TOKEN);
       PubSub.unsubscribe(TRACK_UNSUBSCRIBED_TOKEN);
+      PubSub.unsubscribe(TRACK_MUTED_TOKEN);
     };
   });
 
@@ -73,17 +83,19 @@ export function StudioTile({ participant, ...props }: StudioTileProps) {
   return (
     <div
       id={`participant-tile-${participant.sid}`}
-      className="flex aspect-video rounded-xl gap-2 px-4 py-4 bg-blue-300 overflow-hidden"
+      className="flex aspect-video relative rounded-xl gap-2 px-4 py-4 bg-blue-300 overflow-hidden"
       {...props}
     >
-      {trackSources?.map((source) => (
-        <Streamer
-          key={source}
-          participantId={participant.identity}
-          source={source}
-        />
-      ))}
-      <div className="">{participant.identity}</div>
+      <div className="absolute top-0 right-0 bottom-0 left-0">
+        {trackSources?.map((source) => (
+          <Streamer
+            key={source}
+            participantId={participant.identity}
+            source={source}
+          />
+        ))}
+      </div>
+      <div className="z-10">{participant.identity}</div>
     </div>
   );
 }

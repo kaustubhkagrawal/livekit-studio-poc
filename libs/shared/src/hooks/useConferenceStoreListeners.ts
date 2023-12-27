@@ -17,6 +17,14 @@ export function useConferenceStoreListeners() {
       }
     );
 
+    const VIDEO_TOGGLE_SUCCESS_TOKEN = PubSub.subscribe(
+      CONFERENCE_EVENTS.VIDEO_TOGGLE_SUCCESS,
+      (e, data) => {
+        console.log('video', data);
+        dispatch(controlsActions.toggleVideo(data));
+      }
+    );
+
     // const PARTICIPANT_CONNECTED_TOKEN = PubSub.subscribe(
     //   CONFERENCE_EVENTS.PARTICIPANT_CONNECTED,
     //   (e, data) => {
@@ -51,6 +59,7 @@ export function useConferenceStoreListeners() {
 
     return () => {
       PubSub.unsubscribe(AUDIO_TOGGLE_SUCCESS_TOKEN);
+      PubSub.unsubscribe(VIDEO_TOGGLE_SUCCESS_TOKEN);
       // PubSub.unsubscribe(PARTICIPANT_CONNECTED_TOKEN);
       PubSub.unsubscribe(PARTICIPANT_REFRESH_LIST_TOKEN);
       PubSub.unsubscribe(TRACK_SUBSCRIBED_TOKEN);

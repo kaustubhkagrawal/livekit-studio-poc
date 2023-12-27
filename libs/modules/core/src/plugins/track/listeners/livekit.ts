@@ -4,6 +4,7 @@ import {
   Track as LivekitTrack,
   RemoteParticipant,
   RoomEvent,
+  TrackPublication,
 } from 'livekit-client';
 import PubSub from 'pubsub-js';
 import { IConferenceProvider } from '../../../conference';
@@ -62,6 +63,24 @@ export default function registerListeners(provider: IConferenceProvider) {
       (publication, participant: LivekitParticipant) => {
         PubSub.publish(
           CONFERENCE_EVENTS.TRACK_UNPUBLISHED,
+          transformTrack(publication.track as LivekitTrack, participant)
+        );
+      }
+    )
+    .on(
+      RoomEvent.TrackMuted,
+      (publication: TrackPublication, participant: LivekitParticipant) => {
+        PubSub.publish(
+          CONFERENCE_EVENTS.TRACK_MUTED,
+          transformTrack(publication.track as LivekitTrack, participant)
+        );
+      }
+    )
+    .on(
+      RoomEvent.TrackUnmuted,
+      (publication: TrackPublication, participant: LivekitParticipant) => {
+        PubSub.publish(
+          CONFERENCE_EVENTS.TRACK_UNMUTED,
           transformTrack(publication.track as LivekitTrack, participant)
         );
       }

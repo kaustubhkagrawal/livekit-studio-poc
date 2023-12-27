@@ -20,8 +20,6 @@ const StudioContent = forwardRef<HTMLDivElement, StudioContentProps>(
       items: participants.length,
     });
 
-    console.log('tileCalc', tileCalc);
-
     return (
       <div
         ref={ref}

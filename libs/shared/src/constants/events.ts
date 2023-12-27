@@ -23,7 +23,8 @@ export enum CONFERENCE_EVENTS {
   TRACK_UNSUBSCRIBED = 'core.track.unsubscribed', // remote tracks
   TRACK_PUBLISHED = 'core.track.published', // local tracks
   TRACK_UNPUBLISHED = 'core.track.unpublished', // local tracks
-  TRACK_ATTACH = 'core.track.attach',
+  TRACK_MUTED = 'core.track.muted', // local + remote tracks
+  TRACK_UNMUTED = 'core.track.unmuted', // local + remote tracks
   // AUDIO
   AUDIO = 'core.audio',
   AUDIO_TOGGLE = 'core.audio.toggle.trigger',
