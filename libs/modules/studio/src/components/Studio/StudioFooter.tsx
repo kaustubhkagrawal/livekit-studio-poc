@@ -15,10 +15,10 @@ const StudioFooter = forwardRef<HTMLDivElement, StudioFooterProps>(
       >
         <nav className="hstack gap-2 px-4 py-2">
           <button
-            onClick={() => PubSub.publish(CONFERENCE_EVENTS.AUDIO_TOGGLE, true)}
+            onClick={() => PubSub.publish(CONFERENCE_EVENTS.VIDEO_TOGGLE, true)}
           >
             {' '}
-            Toggle Audio {controls.audio ? 'off' : 'on'}
+            Toggle Video {controls.video ? 'off' : 'on'}
           </button>
         </nav>
         <div className="hstack px-6 py-2">Logo</div>

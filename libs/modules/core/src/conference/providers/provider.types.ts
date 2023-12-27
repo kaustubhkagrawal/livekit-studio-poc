@@ -1,6 +1,7 @@
-import { Participant } from '@kaustubhkagrawal/shared';
+import { Participant, Track } from '@kaustubhkagrawal/shared';
 import { Room } from 'livekit-client';
 import { CONFERENCE_PROVIDER } from '../../constants';
+import { RefObject } from 'react';
 
 export interface IConferenceProvider {
   init(): void;
@@ -12,6 +13,12 @@ export interface IConferenceProvider {
   transformParticipant<T extends Participant>(participant: T): Participant;
   refreshParticipants(): Promise<Participant[]>;
   connect(token?: string): Promise<void>;
+
+  attachStream(
+    mediaElRef: RefObject<HTMLMediaElement>,
+    participantId: Participant['sid'],
+    source: Track.Source
+  ): Promise<void>;
 
   leave(): Promise<void>;
 }

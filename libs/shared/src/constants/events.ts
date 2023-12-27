@@ -17,6 +17,13 @@ export enum CONFERENCE_EVENTS {
   PARTICIPANT_DISCONNECTED = 'core.participant.disconnected',
   PARTICIPANT_UPDATED = 'core.participant.updated',
   PARTICIPANTS_REFRESH_LIST = 'core.participants.list.refresh',
+  // REMOTE_TRACKS
+  TRACK = 'core.track',
+  TRACK_SUBSCRIBED = 'core.track.subscribed', // remote tracks
+  TRACK_UNSUBSCRIBED = 'core.track.unsubscribed', // remote tracks
+  TRACK_PUBLISHED = 'core.track.published', // local tracks
+  TRACK_UNPUBLISHED = 'core.track.unpublished', // local tracks
+  TRACK_ATTACH = 'core.track.attach',
   // AUDIO
   AUDIO = 'core.audio',
   AUDIO_TOGGLE = 'core.audio.toggle.trigger',

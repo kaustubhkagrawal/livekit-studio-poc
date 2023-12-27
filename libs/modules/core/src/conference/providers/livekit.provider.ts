@@ -1,4 +1,8 @@
-import { CONFERENCE_EVENTS, Participant } from '@kaustubhkagrawal/shared';
+import {
+  CONFERENCE_EVENTS,
+  Participant,
+  Track,
+} from '@kaustubhkagrawal/shared';
 import {
   Participant as LivekitParticipant,
   Room,
@@ -7,6 +11,7 @@ import {
 } from 'livekit-client';
 import { CONFERENCE_PROVIDER } from '../../constants';
 import { IConferenceProvider } from './provider.types';
+import { RefObject } from 'react';
 
 const defaultRoomOptions = {
   // automatically manage subscribed video quality
@@ -93,6 +98,26 @@ export class LivekitProvider implements IConferenceProvider {
 
     PubSub.publish(CONFERENCE_EVENTS.PARTICIPANTS_REFRESH_LIST, participants);
     return participants;
+  }
+
+  async attachStream(
+    mediaElRef: RefObject<HTMLMediaElement>,
+    participantId: Participant['identity'],
+    source: Track.Source
+  ): Promise<void> {
+    const livekitParticipant =
+      this.room.getParticipantByIdentity(participantId);
+
+    console.log('livekitParticipant', livekitParticipant);
+
+    if (mediaElRef.current) {
+      console.log('attachStream if statement', mediaElRef.current);
+      const track = livekitParticipant?.getTrack(source)?.track;
+
+      console.log('attachStream track', track);
+
+      track?.attach(mediaElRef.current);
+    }
   }
 
   private cleanup() {}

@@ -5,7 +5,7 @@ import { IConferenceProvider } from '../../../conference';
 
 async function handleVideoToggle(room?: Room | null) {
   const currentVideoState = room?.localParticipant?.isCameraEnabled;
-  const trackPublication = await room?.localParticipant?.setMicrophoneEnabled?.(
+  const trackPublication = await room?.localParticipant?.setCameraEnabled?.(
     !currentVideoState
   );
   if (trackPublication) {

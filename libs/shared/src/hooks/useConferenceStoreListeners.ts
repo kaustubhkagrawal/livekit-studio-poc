@@ -2,7 +2,7 @@ import PubSub from 'pubsub-js';
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { CONFERENCE_EVENTS } from '../constants';
-import { controlsActions, participantsActions } from '../store';
+import { controlsActions, participantsActions, tracksActions } from '../store';
 
 export function useConferenceStoreListeners() {
   const dispatch = useDispatch();
@@ -33,10 +33,28 @@ export function useConferenceStoreListeners() {
       }
     );
 
+    const TRACK_SUBSCRIBED_TOKEN = PubSub.subscribe(
+      CONFERENCE_EVENTS.TRACK_SUBSCRIBED,
+      (e, track) => {
+        console.log('track subscribed', track);
+        dispatch(tracksActions.addTrack(track));
+      }
+    );
+
+    const TRACK_UNSUBSCRIBED_TOKEN = PubSub.subscribe(
+      CONFERENCE_EVENTS.TRACK_UNSUBSCRIBED,
+      (e, track) => {
+        console.log('track unsubscribed', track);
+        dispatch(tracksActions.removeTrack(track));
+      }
+    );
+
     return () => {
       PubSub.unsubscribe(AUDIO_TOGGLE_SUCCESS_TOKEN);
       // PubSub.unsubscribe(PARTICIPANT_CONNECTED_TOKEN);
       PubSub.unsubscribe(PARTICIPANT_REFRESH_LIST_TOKEN);
+      PubSub.unsubscribe(TRACK_SUBSCRIBED_TOKEN);
+      PubSub.unsubscribe(TRACK_UNSUBSCRIBED_TOKEN);
     };
   }, []);
 }

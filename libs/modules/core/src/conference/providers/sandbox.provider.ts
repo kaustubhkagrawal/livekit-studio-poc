@@ -1,6 +1,11 @@
-import { CONFERENCE_EVENTS, Participant } from '@kaustubhkagrawal/shared';
+import {
+  CONFERENCE_EVENTS,
+  Participant,
+  Track,
+} from '@kaustubhkagrawal/shared';
 import { CONFERENCE_PROVIDER } from '../../constants';
 
+import { RefObject } from 'react';
 import { IConferenceProvider } from './provider.types';
 
 interface SandboxProviderOptions {}
@@ -32,6 +37,14 @@ export class SandboxProvider implements IConferenceProvider {
     PubSub.publish(CONFERENCE_EVENTS.PARTICIPANTS_REFRESH_LIST, participants);
 
     return participants;
+  }
+
+  async attachStream(
+    mediaElRef: RefObject<HTMLMediaElement>,
+    participantId: Participant['sid'],
+    source: Track.Source
+  ): Promise<void> {
+    // Attach Media to ele
   }
 
   private cleanup() {}
