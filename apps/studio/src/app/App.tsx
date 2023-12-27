@@ -2,8 +2,20 @@
 import { Provider } from 'react-redux';
 import { StudioPage } from '../pages/StudioPage';
 import { store } from '@kaustubhkagrawal/shared';
+import { useEffect } from 'react';
+import PubSub from 'pubsub-js';
 
 export function App() {
+  useEffect(() => {
+    const token = PubSub.subscribe('core', (event, data) => {
+      console.log('PubSub', { event, data });
+    });
+
+    return () => {
+      PubSub.unsubscribe(token);
+    };
+  }, []);
+
   return (
     <Provider store={store}>
       <StudioPage />

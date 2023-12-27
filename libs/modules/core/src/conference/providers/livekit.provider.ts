@@ -2,13 +2,11 @@ import { CONFERENCE_EVENTS, Participant } from '@kaustubhkagrawal/shared';
 import {
   Participant as LivekitParticipant,
   Room,
-  RoomEvent,
   RoomOptions,
   VideoPresets,
 } from 'livekit-client';
 import { CONFERENCE_PROVIDER } from '../../constants';
 import { IConferenceProvider } from './provider.types';
-import { livekitRoomListeners } from '../room';
 
 const defaultRoomOptions = {
   // automatically manage subscribed video quality
