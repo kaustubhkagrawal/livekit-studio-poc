@@ -16,8 +16,8 @@ const StudioAside = forwardRef<HTMLDivElement, StudioAsideProps>(
         className={`hidden md:flex flex-col w-full md:w-80 gap-2 text-white`}
       >
         {/* <nav className="hstack justify-end w-full px-4 pt-4 gap-2">hi</nav> */}
-        <div className="hidden md:flex flex-col flex-1 mx-2 my-4 px-4 py-4 rounded-lg gap-2 bg-blue-400">
-          <h2 className="text-xl">Participants</h2>
+        <div className="hidden md:flex flex-col flex-1 mx-2 my-4 px-4 py-4 rounded-lg gap-4 bg-blue-400">
+          <h2 className="text-lg pb-2">Participants</h2>
           <div className="hstack gap-2 flex-wrap">
             {participants.map((participant) => (
               <div

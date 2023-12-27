@@ -3,12 +3,14 @@ import {
   Participant,
   SANDBOX_EVENTS,
   Track,
+  randomRoomName,
 } from '@kaustubhkagrawal/shared';
 import { CONFERENCE_PROVIDER } from '../../constants';
 
 import { RefObject } from 'react';
 import { IConferenceProvider } from './provider.types';
 import { Chance } from 'chance';
+import { ConnectionState } from 'livekit-client';
 
 interface SandboxProviderOptions {}
 
@@ -49,6 +51,11 @@ export class SandboxProvider implements IConferenceProvider {
   async connect(token: string = '') {
     console.log('token used', token);
     console.log('Connection established');
+
+    PubSub.publish(CONFERENCE_EVENTS.ROOM_CONNECT_SUCCESS, {
+      name: randomRoomName(),
+      state: ConnectionState.Connected,
+    });
 
     if (this.participants.length === 0) {
       const numParticipants = this.chance.integer({ min: 5, max: 15 });

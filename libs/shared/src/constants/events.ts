@@ -9,6 +9,7 @@ export enum CONFERENCE_EVENTS {
   ROOM = 'core.room',
   ROOM_CONNECT = 'core.room.connect.trigger',
   ROOM_CONNECT_SUCCESS = 'core.room.connect.success',
+  ROOM_CONNECTION_STATE_UPDATE = 'core.room.connection.change',
   ROOM_LEAVE = 'core.room.leave.trigger',
   ROOM_LEAVE_SUCCESS = 'core.room.leave.success',
   // PARTICIPANT

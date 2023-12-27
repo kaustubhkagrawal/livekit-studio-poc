@@ -1,13 +1,13 @@
 import { ConferenceSDK, LivekitProvider } from '@kaustubhkagrawal/core';
 import {
   CONFERENCE_EVENTS,
+  randomRoomName,
   useConferenceStoreListeners,
 } from '@kaustubhkagrawal/shared';
 import { PreJoin, Studio } from '@kaustubhkagrawal/studio';
 import { ComponentProps, useEffect, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { envConfig } from '../config';
-import { randomRoomName } from '../utils';
 
 async function providerInitialize() {
   const provider = new LivekitProvider({

@@ -2,8 +2,9 @@ import { CONFERENCE_EVENTS } from '@kaustubhkagrawal/shared';
 import { ConnectionState, RoomEvent } from 'livekit-client';
 import { IConferenceProvider } from '../../../conference';
 
-function handleRoomConnected() {
-  PubSub.publish(CONFERENCE_EVENTS.ROOM_CONNECT_SUCCESS);
+function handleRoomConnected(provider: IConferenceProvider) {
+  const data = { name: provider.room?.name, status: provider.room?.state };
+  PubSub.publish(CONFERENCE_EVENTS.ROOM_CONNECT_SUCCESS, data);
 }
 
 async function handleRoomLeave(provider: IConferenceProvider) {
@@ -18,12 +19,12 @@ async function handleRoomLeave(provider: IConferenceProvider) {
  * @returns void
  */
 export default function registerListeners(provider: IConferenceProvider) {
-  provider.room?.on(RoomEvent.Connected, handleRoomConnected);
+  provider.room?.on(RoomEvent.Connected, () => handleRoomConnected(provider));
 
   provider.room?.on(
     RoomEvent.ConnectionStateChanged,
     (state: ConnectionState) => {
-      console.log('connnection state changed to', state);
+      PubSub.publish(CONFERENCE_EVENTS.ROOM_CONNECTION_STATE_UPDATE, state);
     }
   );
 
