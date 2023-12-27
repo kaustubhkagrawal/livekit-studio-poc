@@ -37,7 +37,7 @@ const StudioAside = forwardRef<HTMLDivElement, StudioAsideProps>(
             ))}
           </div>
           <div id="aside-footer" className="mt-auto text-center text-sm">
-            There are {participants.length ?? 0} participant
+            There {participants.length > 1 ? 'are' : 'is'} {participants.length ?? 0} participant
             {participants.length > 1 ? 's' : ''} today.
           </div>
         </div>
