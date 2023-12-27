@@ -11,7 +11,6 @@ interface StudioPageProps {}
  * Main Studio(Video Conference) Page.
  */
 export function StudioPage(props: StudioPageProps) {
-  console.log('hostname', envConfig.apiUrl);
   const [joined, setJoined] = useState(false);
   const next: ComponentProps<typeof PreJoin>['next'] = async (data, token) => {
     try {

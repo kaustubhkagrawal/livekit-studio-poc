@@ -1,6 +1,10 @@
+import { cleanTrailingSlash } from '@kaustubhkagrawal/shared';
+
 export const envConfig = {
-  apiUrl:
+  apiUrl: cleanTrailingSlash(
     import.meta.env.VITE_APP_API_URL ?? window.location.href.split('?')[0],
+    true
+  ),
   conference: {
     livekit: {
       wsUrl:

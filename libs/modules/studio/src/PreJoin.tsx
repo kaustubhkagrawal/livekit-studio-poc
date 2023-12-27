@@ -1,10 +1,9 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Input } from '@kaustubhkagrawal/ui';
+import axios from 'axios';
 import { useForm } from 'react-hook-form';
 import { InferType } from 'yup';
 import { joinFormSchema } from './schemas';
-import axios from 'axios';
-import { error } from 'console';
 
 interface PreJoinProps {
   next: (data: InferType<typeof joinFormSchema>, token: string) => void;
@@ -27,9 +26,10 @@ export function PreJoin({ next, roomName, apiUrl }: PreJoinProps) {
 
   const onSubmit = async (data: InferType<typeof joinFormSchema>) => {
     try {
-      const response = await axios.post(`${apiUrl}api/token`, data);
+      const url = `${apiUrl}api/token`;
+      const response = await axios.post(url, data);
 
-      if (response.status === 200) {
+      if (response.status === 201) {
         next({ ...data }, response.data.token);
       }
     } catch (err) {

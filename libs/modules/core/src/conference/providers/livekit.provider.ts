@@ -46,7 +46,7 @@ export class LivekitProvider implements IConferenceProvider {
   async connect(token: string = '') {
     if (token) {
       await this.room.connect(this.options.url, token);
-      livekitRoomListeners(this);
+      this.refreshParticipants();
     } else {
       console.error('Please provide a valid token.');
     }

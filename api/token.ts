@@ -5,13 +5,6 @@ import { AccessToken } from 'livekit-server-sdk';
 export default async (request: VercelRequest, response: VercelResponse) => {
   if (!request.url) return response.status(400);
 
-  // const url = new URL(request.url, `http://${request.headers.host}`);
-  // const { searchParams } = url;
-  // const hasTitle = searchParams.has('title');
-  // const title = hasTitle
-  //   ? searchParams.get('title')?.slice(0, 100)
-  //   : 'My default title';
-
   if (request.method === 'POST') {
     const { body = {} } = request;
     const { roomName = 'xyz', userName = '' } = body;
@@ -30,7 +23,7 @@ export default async (request: VercelRequest, response: VercelResponse) => {
 
     const token = at.toJwt();
 
-    return response.status(200).json({ token });
+    return response.status(201).json({ token });
   } else {
     return response.status(404);
   }
