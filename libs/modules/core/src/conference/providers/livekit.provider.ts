@@ -120,10 +120,13 @@ export class LivekitProvider implements IConferenceProvider {
     }
   }
 
-  private cleanup() {}
+  private cleanup() {
+    PubSub.publish(CONFERENCE_EVENTS.CLEANUP);
+  }
 
   async leave() {
-    this.room.disconnect();
+    await this.room.disconnect();
+    PubSub.publish(CONFERENCE_EVENTS.ROOM_LEAVE_SUCCESS);
     this.cleanup();
   }
 }

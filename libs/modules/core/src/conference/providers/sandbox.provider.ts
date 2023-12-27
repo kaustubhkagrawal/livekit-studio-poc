@@ -79,7 +79,10 @@ export class SandboxProvider implements IConferenceProvider {
     // Attach Media to ele
   }
 
-  private cleanup() {}
+  private cleanup() {
+    PubSub.publish(CONFERENCE_EVENTS.ROOM_LEAVE_SUCCESS);
+    PubSub.publish(CONFERENCE_EVENTS.CLEANUP);
+  }
 
   async leave() {
     console.log('left conference');

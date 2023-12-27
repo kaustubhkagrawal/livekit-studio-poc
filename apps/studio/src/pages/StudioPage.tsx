@@ -1,8 +1,11 @@
 import { ConferenceSDK, LivekitProvider } from '@kaustubhkagrawal/core';
-import { useConferenceStoreListeners } from '@kaustubhkagrawal/shared';
+import {
+  CONFERENCE_EVENTS,
+  useConferenceStoreListeners,
+} from '@kaustubhkagrawal/shared';
 import { PreJoin, Studio } from '@kaustubhkagrawal/studio';
 import { ComponentProps, useEffect, useState } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { envConfig } from '../config';
 import { randomRoomName } from '../utils';
 
@@ -30,11 +33,21 @@ export function StudioPage(props: StudioPageProps) {
   const [searchParams, setSearchParams] = useSearchParams();
   const roomName = searchParams.get('roomName');
 
+  const navigate = useNavigate();
+
   useEffect(() => {
     if (!roomName) {
       setSearchParams({ roomName: defaultRoomName });
+      navigate(0);
     }
   }, [roomName]);
+
+  useEffect(() => {
+    PubSub.subscribe(CONFERENCE_EVENTS.ROOM_LEAVE_SUCCESS, () => {
+      console.log('pubsub success cb called');
+      navigate('/');
+    });
+  }, [navigate]);
 
   useEffect(() => {
     providerInitialize();

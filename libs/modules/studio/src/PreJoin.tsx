@@ -1,10 +1,12 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Input, Spinner } from '@kaustubhkagrawal/ui';
 import axios from 'axios';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { InferType } from 'yup';
 import { joinFormSchema } from './schemas';
+import PubSub from 'pubsub-js';
+import { CONFERENCE_EVENTS } from '@kaustubhkagrawal/shared';
 
 interface PreJoinProps {
   next: (data: InferType<typeof joinFormSchema>, token: string) => void;
@@ -26,6 +28,12 @@ export function PreJoin({ next, roomName, apiUrl }: PreJoinProps) {
     },
   });
 
+  useEffect(() => {
+    PubSub.subscribe(CONFERENCE_EVENTS.ROOM_CONNECT_SUCCESS, () => {
+      setIsLoading(false);
+    });
+  });
+
   const onSubmit = async (data: InferType<typeof joinFormSchema>) => {
     try {
       setIsLoading(true);
@@ -38,8 +46,6 @@ export function PreJoin({ next, roomName, apiUrl }: PreJoinProps) {
     } catch (err) {
       console.error(err);
     }
-
-    setIsLoading(false);
   };
 
   return (
@@ -66,7 +72,9 @@ export function PreJoin({ next, roomName, apiUrl }: PreJoinProps) {
             type="submit"
             disabled={!isValid}
           >
-            {isLoading ? <Spinner className="mr-2 fill-white w-4 h-4" /> : null}
+            {isLoading ? (
+              <Spinner className="-ml-6 mr-2 mb-1 text-blue-200 dark:text-blue-700 fill-white w-4 h-4" />
+            ) : null}
             Join
           </button>
         </form>

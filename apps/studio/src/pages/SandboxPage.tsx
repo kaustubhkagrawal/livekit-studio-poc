@@ -1,8 +1,12 @@
 import { ConferenceSDK, SandboxProvider } from '@kaustubhkagrawal/core';
-import { useConferenceStoreListeners } from '@kaustubhkagrawal/shared';
+import {
+  CONFERENCE_EVENTS,
+  useConferenceStoreListeners,
+} from '@kaustubhkagrawal/shared';
 import { Studio } from '@kaustubhkagrawal/studio';
 import { useEffect, useState } from 'react';
 import { envConfig } from '../config';
+import { useNavigate } from 'react-router-dom';
 
 async function providerInitialize() {
   const provider = new SandboxProvider({
@@ -22,12 +26,19 @@ interface SandboxPageProps {}
  */
 export function SandboxPage(props: SandboxPageProps) {
   const [joined, setJoined] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     providerInitialize().then(() => {
       next();
     });
   }, []);
+
+  useEffect(() => {
+    PubSub.subscribe(CONFERENCE_EVENTS.ROOM_LEAVE_SUCCESS, () => {
+      navigate('/');
+    });
+  }, [navigate]);
 
   const next = async () => {
     try {
