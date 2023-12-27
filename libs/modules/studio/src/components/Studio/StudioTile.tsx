@@ -6,7 +6,7 @@ import {
 } from '@kaustubhkagrawal/shared';
 import PubSub from 'pubsub-js';
 import { HTMLAttributes, useEffect, useState } from 'react';
-import { Streamer } from './VideoStream';
+import { Streamer } from './Streamer';
 
 interface StudioTileProps extends HTMLAttributes<HTMLDivElement> {
   participant: Participant;
@@ -83,19 +83,32 @@ export function StudioTile({ participant, ...props }: StudioTileProps) {
   return (
     <div
       id={`participant-tile-${participant.sid}`}
-      className="flex aspect-video relative rounded-xl gap-2 px-4 py-4 bg-blue-300 overflow-hidden"
+      className="flex aspect-video relative rounded-xl gap-2 px-4 py-4 bg-blue-900 text-white overflow-hidden"
       {...props}
     >
       <div className="absolute top-0 right-0 bottom-0 left-0">
         {trackSources?.map((source) => (
           <Streamer
             key={source}
-            participantId={participant.identity}
+            participantId={participant.sid}
+            participantIdentity={participant.identity}
             source={source}
           />
         ))}
+        <div className="flex flex-1 w-full h-full justify-center items-center">
+          <img
+            src={`https://gravatar.com/avatar/${participant.sid.toLowerCase()}?d=identicon`}
+            alt={participant.identity}
+            className="rounded-full bg-blue-500 w-30 h-30"
+          />
+        </div>
       </div>
-      <div className="z-10">{participant.identity}</div>
+      <div
+        title={participant.identity}
+        className="z-10 mt-auto bg-black/30 rounded-lg px-4 py-1 text-sm max-h-7 text-ellipsis overflow-y-hidden"
+      >
+        {participant.identity}
+      </div>
     </div>
   );
 }

@@ -10,17 +10,23 @@ const videoSources = [
 
 interface StreamerProps {
   source: Track.Source;
-  participantId: Participant['identity'];
+  participantId: Participant['sid'];
+  participantIdentity: Participant['identity'];
   mirror?: boolean;
 }
 
 const Streamer = memo(
-  ({ source, participantId, mirror = false }: StreamerProps) => {
+  ({
+    source,
+    participantId,
+    participantIdentity,
+    mirror = false,
+  }: StreamerProps) => {
     const ref = useRef<HTMLVideoElement>(null);
 
     useEffect(() => {
-      ConferenceSDK.provider.attachStream(ref, participantId, source);
-    }, [source, participantId]);
+      ConferenceSDK.provider.attachStream(ref, participantIdentity, source);
+    }, [source, participantIdentity]);
 
     return videoSources.includes(source) ? (
       <div
@@ -38,12 +44,21 @@ const Streamer = memo(
         />
       </div>
     ) : (
-      <audio
-        ref={ref}
-        style={{ display: 'hidden' }}
-        autoPlay
-        controls={false}
-      />
+      <>
+        <div className="flex flex-1 w-full h-full justify-center items-center">
+          <img
+            src={`https://gravatar.com/avatar/${participantId.toLowerCase()}?d=identicon`}
+            alt={participantIdentity}
+            className="rounded-full bg-blue-500 w-30 h-30"
+          />
+        </div>
+        <audio
+          ref={ref}
+          style={{ display: 'hidden' }}
+          autoPlay
+          controls={false}
+        />
+      </>
     );
   }
 );

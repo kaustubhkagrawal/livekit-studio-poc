@@ -50,11 +50,13 @@ export class SandboxProvider implements IConferenceProvider {
     console.log('token used', token);
     console.log('Connection established');
 
-    const numParticipants = this.chance.integer({ min: 1, max: 25 });
-    for (let i = 0; i < numParticipants; i++) {
-      this.participants.push(this.createParticipant(i === 0));
+    if (this.participants.length === 0) {
+      const numParticipants = this.chance.integer({ min: 5, max: 15 });
+      for (let i = 0; i < numParticipants; i++) {
+        this.participants.push(this.createParticipant(i === 0));
+      }
+      PubSub.publish(SANDBOX_EVENTS.PARTICIPANTS_CREATED);
     }
-    PubSub.publish(SANDBOX_EVENTS.PARTICIPANTS_CREATED);
   }
 
   transformParticipant<T extends Participant>(participant: T): Participant {

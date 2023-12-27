@@ -25,7 +25,7 @@ const StudioAside = forwardRef<HTMLDivElement, StudioAsideProps>(
                   src={`https://gravatar.com/avatar/${participant.sid.toLowerCase()}?d=identicon`}
                   alt={participant.identity}
                   className="rounded-full bg-blue-500 w-10 h-10"
-                ></img>
+                />
                 <div className="text-sm text-center text-truncate whitespace-nowrap overflow-hidden w-full">
                   {participant.identity.split(' ')[0]}
                 </div>

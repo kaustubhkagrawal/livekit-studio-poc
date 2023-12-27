@@ -24,14 +24,16 @@ export function SandboxPage(props: SandboxPageProps) {
   const [joined, setJoined] = useState(false);
 
   useEffect(() => {
-    providerInitialize();
+    providerInitialize().then(() => {
+      next();
+    });
   }, []);
 
-  const next: ComponentProps<typeof PreJoin>['next'] = async (data, token) => {
+  const next = async () => {
     try {
       console.log('next called');
 
-      await ConferenceSDK.provider.connect(token);
+      await ConferenceSDK.provider.connect('');
 
       setJoined(true);
     } catch (err) {
@@ -42,9 +44,5 @@ export function SandboxPage(props: SandboxPageProps) {
 
   useConferenceStoreListeners();
 
-  return joined ? (
-    <Studio />
-  ) : (
-    <PreJoin apiUrl={envConfig.apiUrl} roomName={''} next={next} />
-  );
+  return joined ? <Studio /> : 'Loading...';
 }
