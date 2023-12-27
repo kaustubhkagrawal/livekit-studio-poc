@@ -18,7 +18,6 @@
     "paths": {
       "@kaustubhkagrawal/core": ["libs/modules/core/src/index.ts"],
       "@kaustubhkagrawal/shared": ["libs/shared/src/index.ts"],
-      "@kaustubhkagrawal/studio": ["libs/modules/studio/src/index.ts"],
       "@kaustubhkagrawal/ui": ["libs/ui/src/index.ts"]
     }
   },

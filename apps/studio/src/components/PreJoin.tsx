@@ -4,7 +4,7 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { InferType } from 'yup';
-import { joinFormSchema } from './schemas';
+import { joinFormSchema } from '../schemas';
 import PubSub from 'pubsub-js';
 import { CONFERENCE_EVENTS } from '@kaustubhkagrawal/shared';
 

@@ -3,10 +3,10 @@ import {
   CONFERENCE_EVENTS,
   useConferenceStoreListeners,
 } from '@kaustubhkagrawal/shared';
-import { Studio } from '@kaustubhkagrawal/studio';
 import { useEffect, useState } from 'react';
-import { envConfig } from '../config';
 import { useNavigate } from 'react-router-dom';
+import { Studio } from '../components';
+import { envConfig } from '../config';
 
 async function providerInitialize() {
   const provider = new SandboxProvider({

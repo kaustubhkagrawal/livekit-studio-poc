@@ -4,9 +4,9 @@ import {
   randomRoomName,
   useConferenceStoreListeners,
 } from '@kaustubhkagrawal/shared';
-import { PreJoin, Studio } from '@kaustubhkagrawal/studio';
 import { ComponentProps, useEffect, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
+import { PreJoin, Studio } from '../components';
 import { envConfig } from '../config';
 
 async function providerInitialize() {
